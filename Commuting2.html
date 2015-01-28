@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>计算每月通勤费用</title>
+    <style>
+        #form{
+            width:500px ;
+            padding: 50px;
+            border: 1px solid #000000;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div id="form">
+    地铁单程票价：<input type="number" id="subway" required="required">
+    <br>
+    家到地铁站公交单程票价：<input type="number" id="bus1" required="required">
+    <br>
+    地铁站到公司公交单程票价：<input type="number" id="bus2" placeholder="1" required="required">
+    <br>
+    每月工作天数：<input type="number" id="days" placeholder="22" required="required">
+    <br>
+    <input type="button" value="提交" id="submit">
+    <br>
+    你每月的通勤费用是：<input type="text" id="sum">
+    <br>
+    <p>根据地铁优惠政策，每自然月内，使用市政交通一卡通乘坐地铁支出累计满100元以后的乘次，价格给予8折优惠；满150元以后的乘次，价格给予5折优惠；
+        支出累计达400元以后的乘次，不再享受打折优惠。需要注意的是，刷卡累计必须是<strong>地铁刷满100元后</strong>才享受打折。</p>
+</div>
+<script>
+    var submit = document.getElementById('submit');
+    var sum = document.getElementById('sum');
+    var checkDiscount2 = function(total) {
+        if(total >= 400) {
+            return 1;
+        } else if(total >= 150) {
+            return 0.5;
+        } else if(total >= 100) {
+            return 0.8;
+        } else {
+            return 1;
+        }
+    }
+    submit.onclick = function(){
+        var total = 0;
+        var subway = parseFloat(document.getElementById('subway').value);
+        var bus1 = parseFloat(document.getElementById('bus1').value);
+        var bus2 =  parseFloat(document.getElementById('bus2').value || document.getElementById('bus2').placeholder);
+        var days =  parseInt(document.getElementById('days').value || document.getElementById('days').placeholder);
+        if(isNaN(subway*bus1*bus2)){
+            alert("请输入正确的金额");
+            return;
+        }
+        for (var i = 0;i<days;i++){
+            total += subway*checkDiscount2(total);
+            total += subway*checkDiscount2(total);
+        }
+        sum.value = (total + days*2*(bus1 + bus2)).toFixed(1);
+    }
+</script>
+</body>
+</html>
