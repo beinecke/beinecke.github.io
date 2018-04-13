@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="app">
-	<mt-switch v-model="bChinese"></mt-switch>
+	<mt-switch v-model="bEnglish" id="switch">{{bEnglish?'英文':'中文'}}</mt-switch>
 	<mt-swipe :show-indicators="false" :auto="0">
 		<mt-swipe-item v-for="(item,index) in list"  :key="index">
 			<div class="image-wrap" v-for="ele in item">
@@ -15,7 +15,7 @@
 			</div>
 		</mt-swipe-item>
 	</mt-swipe>
-	<audio src="" id="audio" :key=""></audio>
+	<audio src="" id="audio"></audio>
 </div>
 </body>
 <!-- 先引入 Vue -->
@@ -29,25 +29,25 @@
 			return {
 				list:[
 					[
-						{img:'./static/image/apple.jpg',name:'苹果',name_en:'Apple'},
-						{img:'./static/image/avocado.jpg',name:'牛油果',name_en:'Avocado'},
+						{img:'./static/image/apple.jpg',zh:'苹果',en:'Apple'},
+						{img:'./static/image/avocado.jpg',zh:'牛油果',en:'Avocado'},
 					],
 					[
-						{img:'./static/image/orange1.jpg',name:'橙子',name_en:'Orange'},
-						{img:'./static/image/kiwifruit.jpg',name:'猕猴桃',name_en:'Kiwifruit'},
+						{img:'./static/image/orange1.jpg',zh:'橙子',en:'Orange'},
+						{img:'./static/image/kiwifruit.jpg',zh:'猕猴桃',en:'Kiwifruit'},
 					],
 					[
-						{img:'./static/image/pear.jpg',name:'梨',name_en:'Pear'},
-						{img:'./static/image/pitaya.jpg',name:'火龙果',name_en:'Pitaya'},
+						{img:'./static/image/pear.jpg',zh:'梨',en:'Pear'},
+						{img:'./static/image/pitaya.jpg',zh:'火龙果',en:'Pitaya'},
 					],
 				],
-				bChinese:true,
+				bEnglish:false,
 			}
 		},
 		methods: {
 			fPlay(item){
-				var audio =document.querySelector('#audio');
-				audio.src = 'http://fanyi.baidu.com/gettts?lan=en&text='+item.name_en+'&spd=5&source=web';
+				let audio =document.querySelector('#audio'),lang = this.bEnglish?'en':'zh';
+				audio.src = 'http://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
 				audio.play();
 			},
 		}
@@ -63,6 +63,12 @@
 		width: 100%;
 		position: relative;
 	}
+	#switch{
+		position: fixed;
+		left:50%;
+		z-index: 100;
+	}
+
 	.mint-swipe-item:nth-child(2n) {
 		background-color: #99a9bf;
 	}
@@ -83,5 +89,11 @@
 		top:50%;
 		transform: translateY(-50%);
 	}
+	.mint-switch-core::before{
+		background-color: red;
+	}
+	/*.mint-switch-core::after {*/
+		/*background-color: red;*/
+	/*}*/
 </style>
 </html>
