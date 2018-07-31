@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>你所不知道的Javascript</title>
+</head>
+<body>
+<h1 onclick="fDom0()" id="target">点击我测试</h1>
+</body>
+<script>
+	console.log(typeof fDom0);
+	console.log(typeof fDom3);
+
+	function fDom0(){
+		alert('Dom0');
+	}
+	var fDom3 = function (){
+		alert('Dom3');
+	};
+	console.log(typeof fDom3);
+	var target = document.querySelector('#target');
+	target.addEventListener('click',function(){
+		alert('Dom2');
+	})
+</script>
+</html>

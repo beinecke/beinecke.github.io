@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="./static/js/jquery-1.11.1.min.js"></script>
+<style>
+	.wrapper div{
+		width: 100px;
+		display: inline-block;
+	}
+	.wrapper div div{
+		float: left;
+		width: 100px;
+		height: 30px;
+		border: 5px solid white;
+		transition: height 0.5s;
+	}
+	.wrapper .large{
+		 height: 60px;
+	}
+	.wrapper .small{
+		height: 15px;
+	}
+	.red div{
+		background-color: red;
+	}
+	.green div{
+		background-color: green;
+	}
+	.blue div{
+		background-color: blue;
+	}
+</style>
+</head>
+<body>
+<div>
+<div class="wrapper">
+	<div class="column red">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="column green">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="column blue">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</div>
+</div>
+</body>
+<script>
+	$('.column div').hover(function(){
+		$(this).addClass('large');
+		$(this).siblings().addClass('small');
+	},function(){
+		$(this).removeClass('large');
+		$(this).siblings().removeClass('small');
+	});
+
+</script>
+</html>

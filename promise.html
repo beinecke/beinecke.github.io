@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+//	function timeout(ms){
+//		return new Promise((resolve,reject) => {
+//			console.log('ppppp');
+//			let random = parseInt(Math.random()*10);
+//			if(random %2 == 0){
+////				setTimeout(resolve,ms,random);
+//				resolve(random);
+//			}else{
+////				setTimeout(reject,ms,random);
+//				reject(random);
+//			}
+//
+//		})
+//	}
+//	timeout(1000).then((val) => {
+//		console.log(val);
+//	},err => {
+//		console.log('error',err)
+//	})
+const p1 = new Promise(function (resolve, reject) {
+	setTimeout(() => reject(new Error('fail')), 3000)
+})
+
+const p2 = new Promise(function (resolve, reject) {
+	console.log(resolve);
+	setTimeout(() => resolve(p1), 1000)
+})
+
+p2.then(result => console.log('then'+result))
+.catch(error => console.log('catch'+error))
+</script>
+</html>
