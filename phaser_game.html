@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
-	<title>Title</title>
+	<title>小恐龙接苹果</title>
 	<script src="https://cdn.bootcss.com/phaser/2.6.2/phaser.min.js"></script>
 </head>
 <style>
@@ -167,7 +167,7 @@
 				// 苹果类型
 				var appleTypes = ['green', 'red', 'yellow', 'bomb'];
 				var appleTimer = game.time.create(true);
-				var interval = 800,asending = false;
+				var interval = 800;
 
 				var loopFunction = function() {
 					var x = Math.random() * game.world.width;
@@ -190,9 +190,9 @@
 							if (apple.type !== 'bomb') game.state.start('over', true, false, score);
 						}
 					});
-					if(score>10 && interval>=200){
+					if(score>10 && interval>200){
 						appleTimer.stop();
-						interval -= 10;
+						interval -= 20;
 						console.log(interval);
 						appleTimer.loop(interval,loopFunction);
 						appleTimer.start();
