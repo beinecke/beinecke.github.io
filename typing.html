@@ -39,14 +39,14 @@
 				game.load.image('yellow', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/yellow.png');
 				game.load.image('bomb', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/bomb.png');
 				game.load.image('9', './static/image/number/9.png');
-				game.load.image('8', './static/image/number/eight.png');
+				game.load.image('8', './static/image/number/8.png');
 				game.load.image('7', './static/image/number/7.png');
-				game.load.image('6', './static/image/number/six.png');
-				game.load.image('5', './static/image/number/five.png');
-				game.load.image('4', './static/image/number/four.png');
-				game.load.image('3', './static/image/number/three.png');
-				game.load.image('2', './static/image/number/two.png');
-				game.load.image('1', './static/image/number/one.png');
+				game.load.image('6', './static/image/number/6.png');
+				game.load.image('5', './static/image/number/5.png');
+				game.load.image('4', './static/image/number/4.png');
+				game.load.image('3', './static/image/number/3.png');
+				game.load.image('2', './static/image/number/2.png');
+				game.load.image('1', './static/image/number/1.png');
 				game.load.image('0', './static/image/number/0.png');
 				game.load.audio('bgMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/bgMusic.mp3');
 				game.load.audio('scoreMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/addscore.mp3');
@@ -88,7 +88,7 @@
 				bg.width = game.world.width;
 				bg.height = game.world.height;
 				// 添加标题
-				var title = game.add.text(game.world.centerX, game.world.height * 0.25, '小恐龙接苹果', {
+				var title = game.add.text(game.world.centerX, game.world.height * 0.25, '小安安练打字', {
 					fontSize: '40px',
 					fontWeight: 'bold',
 					fill: '#f2bb15'
@@ -114,37 +114,37 @@
 		},
 		// 游戏场景
 		play: function() {
-			var apples; // 苹果
+			var numbers; // 苹果
 			var scoreMusic;
 			var bombMusic;
 			var bgMusic;
-			var appleTypes;
+			var numberTypes;
 			// 添加苹果组
-			var appleFall = function (num) {
+			var numberFall = function (num) {
 				var x = Math.random() * game.world.width;
 				var index = Math.floor(Math.random() * 10)
 				var type = index+'';
-				var apple = apples.create(x, 0, type);
-				apple.type = type;
+				var number = numbers.create(x, 0, type);
+				number.type = type;
 				// 设置苹果加入物理运动
-				game.physics.enable(apple);
+				game.physics.enable(number);
 				// 设置苹果大小
-				var appleImg = game.cache.getImage(type);
-				apple.width = game.world.width / 8;
-				apple.height = apple.width / appleImg.width * appleImg.height;
+				var numberImg = game.cache.getImage(type);
+				number.width = game.world.width / 8;
+				number.height = number.width / numberImg.width * numberImg.height;
 				// 设置苹果与游戏边缘碰撞，
-				apple.body.collideWorldBounds = true;
-				apple.body.onWorldBounds = new Phaser.Signal();
-				apple.body.onWorldBounds.add(function (apple, up, down, left, right) {
+				number.body.collideWorldBounds = true;
+				number.body.onWorldBounds = new Phaser.Signal();
+				number.body.onWorldBounds.add(function (number, up, down, left, right) {
 					if (down) {
-						apple.kill();
+						number.kill();
 					}
 				});
 			};
 			this.create = function () {
 				// 开启物理引擎
 				game.physics.startSystem(Phaser.Physics.Arcade);
-				game.physics.arcade.gravity.y = 800;
+				game.physics.arcade.gravity.y = 300;
 				// 得分
 				// 添加背景音乐
 				if (!bgMusic) {
@@ -158,12 +158,15 @@
 				var bg = game.add.image(0, 0, 'bg');
 				bg.width = game.world.width;
 				bg.height = game.world.height;
-				apples = game.add.group();
-				// 苹果类型
-//				appleTypes = ['0','1','2','3'];
+				numbers = game.add.group();
 				game.input.keyboard.onPressCallback = function (char,key) {
-					console.log(char,key.keyCode);
-					appleFall(key.keyCode);
+					if(key.keyCode == 27){
+						console.log(key.keyCode);
+						game.state.start('over');
+					}else{
+						numberFall(key.keyCode);
+					}
+
 				};
 			};
 		},
