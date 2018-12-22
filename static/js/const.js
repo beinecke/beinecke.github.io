@@ -1,0 +1,22 @@
+export const fruits = [
+	[
+		{img:'./static/image/apple.jpg',zh:'苹果',en:'Apple'},
+		{img:'./static/image/avocado.jpg',zh:'牛油果',en:'Avocado'},
+	],
+	[
+		{img:'./static/image/orange1.jpg',zh:'橙子',en:'Orange'},
+		{img:'./static/image/kiwifruit.jpg',zh:'猕猴桃',en:'Kiwifruit'},
+	],
+	[
+		{img:'./static/image/pear.jpg',zh:'梨',en:'Pear'},
+		{img:'./static/image/pitaya.jpg',zh:'火龙果',en:'Pitaya'},
+	],
+	[
+		{img:'./static/image/peach.jpg',zh:'桃子',en:'Peach'},
+		{img:'./static/image/berry.jpg',zh:'红草莓',en:'Straberry'},
+	],
+	[
+		{img:'./static/image/grape.jpeg',zh:'葡萄',en:'Grape'},
+		{img:'./static/image/banana.jpeg',zh:'香蕉',en:'Banana'},
+	],
+]
