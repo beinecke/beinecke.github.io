@@ -121,8 +121,12 @@
 			var numberTypes;
 			// 添加苹果组
 			var numberFall = function (num) {
-				var x = Math.random() * game.world.width;
-				var index = Math.floor(Math.random() * 10)
+				var x = Math.random() * game.world.width,index;
+				if(num>=48 && num <=57){
+					index = num-48;
+				} else{
+					index = Math.floor(Math.random() * 10)
+				}
 				var type = index+'';
 				var number = numbers.create(x, 0, type);
 				number.type = type;
@@ -144,7 +148,7 @@
 			this.create = function () {
 				// 开启物理引擎
 				game.physics.startSystem(Phaser.Physics.Arcade);
-				game.physics.arcade.gravity.y = 300;
+				game.physics.arcade.gravity.y = 200;
 				// 得分
 				// 添加背景音乐
 				if (!bgMusic) {
@@ -160,8 +164,7 @@
 				bg.height = game.world.height;
 				numbers = game.add.group();
 				game.input.keyboard.onPressCallback = function (char,key) {
-					if(key.keyCode == 27){
-						console.log(key.keyCode);
+					if(key.keyCode == 96){
 						game.state.start('over');
 					}else{
 						numberFall(key.keyCode);
@@ -188,7 +191,7 @@
 					fill: '#f2bb15'
 				});
 				title.anchor.setTo(0.5, 0.5);
-				var scoreStr = '你的得分是：'+score+'分';
+				var scoreStr = '安安真棒!';
 				var scoreText = game.add.text(game.world.centerX, game.world.height * 0.4, scoreStr, {
 					fontSize: '30px',
 					fontWeight: 'bold',
