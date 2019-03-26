@@ -33,32 +33,32 @@
 				// 加载游戏资源
 				game.load.crossOrigin = 'anonymous'; // 设置跨域
 				game.load.image('bg', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/bg.png');
-				game.load.image('25', './static/image/alpha/z.png');
-				game.load.image('24', './static/image/alpha/y.png');
-				game.load.image('23', './static/image/alpha/x.png');
-				game.load.image('22', './static/image/alpha/w.png');
-				game.load.image('21', './static/image/alpha/v.png');
-				game.load.image('20', './static/image/alpha/u.png');
-				game.load.image('19', './static/image/alpha/t.png');
-				game.load.image('18', './static/image/alpha/s.png');
-				game.load.image('17', './static/image/alpha/r.png');
-				game.load.image('16', './static/image/alpha/q.png');
-				game.load.image('15', './static/image/alpha/p.png');
-				game.load.image('14', './static/image/alpha/o.png');
-				game.load.image('13', './static/image/alpha/n.png');
-				game.load.image('12', './static/image/alpha/m.png');
-				game.load.image('11', './static/image/alpha/l.png');
-				game.load.image('10', './static/image/alpha/k.png');
-				game.load.image('9', './static/image/alpha/j.png');
-				game.load.image('8', './static/image/alpha/i.png');
-				game.load.image('7', './static/image/alpha/h.png');
-				game.load.image('6', './static/image/alpha/g.png');
-				game.load.image('5', './static/image/alpha/f.png');
-				game.load.image('4', './static/image/alpha/e.png');
-				game.load.image('3', './static/image/alpha/d.png');
-				game.load.image('2', './static/image/alpha/c.png');
-				game.load.image('1', './static/image/alpha/b.png');
-				game.load.image('0', './static/image/alpha/a.png');
+				game.load.image('25', './static/image/alpha/z.svg');
+				game.load.image('24', './static/image/alpha/y.svg');
+				game.load.image('23', './static/image/alpha/x.svg');
+				game.load.image('22', './static/image/alpha/w.svg');
+				game.load.image('21', './static/image/alpha/v.svg');
+				game.load.image('20', './static/image/alpha/u.svg');
+				game.load.image('19', './static/image/alpha/t.svg');
+				game.load.image('18', './static/image/alpha/s.svg');
+				game.load.image('17', './static/image/alpha/r.svg');
+				game.load.image('16', './static/image/alpha/q.svg');
+				game.load.image('15', './static/image/alpha/p.svg');
+				game.load.image('14', './static/image/alpha/o.svg');
+				game.load.image('13', './static/image/alpha/n.svg');
+				game.load.image('12', './static/image/alpha/m.svg');
+				game.load.image('11', './static/image/alpha/l.svg');
+				game.load.image('10', './static/image/alpha/k.svg');
+				game.load.image('9', './static/image/alpha/j.svg');
+				game.load.image('8', './static/image/alpha/i.svg');
+				game.load.image('7', './static/image/alpha/h.svg');
+				game.load.image('6', './static/image/alpha/g.svg');
+				game.load.image('5', './static/image/alpha/f.svg');
+				game.load.image('4', './static/image/alpha/e.svg');
+				game.load.image('3', './static/image/alpha/d.svg');
+				game.load.image('2', './static/image/alpha/c.svg');
+				game.load.image('1', './static/image/alpha/b.svg');
+				game.load.image('0', './static/image/alpha/a.svg');
 				game.load.audio('bgMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/bgMusic.mp3');
 				// 添加进度文字
 				var progressText = game.add.text(game.world.centerX, game.world.centerY, '0%', {
@@ -141,7 +141,7 @@
 				game.physics.enable(number);
 				// 设置苹果大小
 				var numberImg = game.cache.getImage(type);
-				number.width = game.world.width / 12;
+				number.width = game.world.width / 10;
 				number.height = number.width / numberImg.width * numberImg.height;
 				// 设置苹果与游戏边缘碰撞，
 				number.body.collideWorldBounds = true;
