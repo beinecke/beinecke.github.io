@@ -25,7 +25,7 @@ export const fruits = [
 	],
 	[
 		{img:'./static/image/fruit/mango.png',zh:'芒果',en:'Mango'},
-		{img:'./static/image/fruit/watermelon.png',zh:'香蕉',en:'Watermelon'},
+		{img:'./static/image/fruit/watermelon.png',zh:'西瓜',en:'Watermelon'},
 	],
 	[
 		{img:'./static/image/vegetable/nangua.jpeg',zh:'南瓜',en:'Pumpkin'},

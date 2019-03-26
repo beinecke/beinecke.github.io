@@ -33,21 +33,32 @@
 				// 加载游戏资源
 				game.load.crossOrigin = 'anonymous'; // 设置跨域
 				game.load.image('bg', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/bg.png');
-				game.load.image('dude', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/dude.png');
-				game.load.image('green', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/green.png');
-				game.load.image('red', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/red.png');
-				game.load.image('yellow', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/yellow.png');
-				game.load.image('bomb', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/bomb.png');
-				game.load.image('9', './static/image/number/9.png');
-				game.load.image('8', './static/image/number/8.png');
-				game.load.image('7', './static/image/number/7.png');
-				game.load.image('6', './static/image/number/6.png');
-				game.load.image('5', './static/image/number/5.png');
-				game.load.image('4', './static/image/number/4.png');
-				game.load.image('3', './static/image/number/3.png');
-				game.load.image('2', './static/image/number/2.png');
-				game.load.image('1', './static/image/number/1.png');
-				game.load.image('0', './static/image/number/0.png');
+				game.load.image('25', './static/image/alpha/z.png');
+				game.load.image('24', './static/image/alpha/y.png');
+				game.load.image('23', './static/image/alpha/x.png');
+				game.load.image('22', './static/image/alpha/w.png');
+				game.load.image('21', './static/image/alpha/v.png');
+				game.load.image('20', './static/image/alpha/u.png');
+				game.load.image('19', './static/image/alpha/t.png');
+				game.load.image('18', './static/image/alpha/s.png');
+				game.load.image('17', './static/image/alpha/r.png');
+				game.load.image('16', './static/image/alpha/q.png');
+				game.load.image('15', './static/image/alpha/p.png');
+				game.load.image('14', './static/image/alpha/o.png');
+				game.load.image('13', './static/image/alpha/n.png');
+				game.load.image('12', './static/image/alpha/m.png');
+				game.load.image('11', './static/image/alpha/l.png');
+				game.load.image('10', './static/image/alpha/k.png');
+				game.load.image('9', './static/image/alpha/j.png');
+				game.load.image('8', './static/image/alpha/i.png');
+				game.load.image('7', './static/image/alpha/h.png');
+				game.load.image('6', './static/image/alpha/g.png');
+				game.load.image('5', './static/image/alpha/f.png');
+				game.load.image('4', './static/image/alpha/e.png');
+				game.load.image('3', './static/image/alpha/d.png');
+				game.load.image('2', './static/image/alpha/c.png');
+				game.load.image('1', './static/image/alpha/b.png');
+				game.load.image('0', './static/image/alpha/a.png');
 				game.load.audio('bgMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/bgMusic.mp3');
 				// 添加进度文字
 				var progressText = game.add.text(game.world.centerX, game.world.centerY, '0%', {
@@ -118,10 +129,10 @@
 			// 添加苹果组
 			var numberFall = function (num) {
 				var x = Math.random() * game.world.width,index;
-				if(num>=48 && num <=57){
-					index = num-48;
+				if(num>=97 && num <=122){
+					index = num-97;
 				} else{
-					index = Math.floor(Math.random() * 10)
+					index = Math.floor(Math.random() * 26)
 				}
 				var type = index+'';
 				var number = numbers.create(x, 0, type);
@@ -130,7 +141,7 @@
 				game.physics.enable(number);
 				// 设置苹果大小
 				var numberImg = game.cache.getImage(type);
-				number.width = game.world.width / 8;
+				number.width = game.world.width / 12;
 				number.height = number.width / numberImg.width * numberImg.height;
 				// 设置苹果与游戏边缘碰撞，
 				number.body.collideWorldBounds = true;
@@ -144,7 +155,7 @@
 			this.create = function () {
 				// 开启物理引擎
 				game.physics.startSystem(Phaser.Physics.Arcade);
-				game.physics.arcade.gravity.y = 200;
+				game.physics.arcade.gravity.y = 100;
 				// 添加背景音乐
 				if (!bgMusic) {
 					bgMusic = game.add.audio('bgMusic');
