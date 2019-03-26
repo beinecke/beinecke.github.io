@@ -38,19 +38,17 @@
 				game.load.image('red', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/red.png');
 				game.load.image('yellow', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/yellow.png');
 				game.load.image('bomb', '//24haowan-cdn.shanyougame.com/pickApple2/assets/images/bomb.png');
-				game.load.image('9', './static/image/number/9.png');
-				game.load.image('8', './static/image/number/8.png');
-				game.load.image('7', './static/image/number/7.png');
-				game.load.image('6', './static/image/number/6.png');
-				game.load.image('5', './static/image/number/5.png');
-				game.load.image('4', './static/image/number/4.png');
-				game.load.image('3', './static/image/number/3.png');
-				game.load.image('2', './static/image/number/2.png');
-				game.load.image('1', './static/image/number/1.png');
-				game.load.image('0', './static/image/number/0.png');
+				game.load.image('9', './static/image/number/9.svg');
+				game.load.image('8', './static/image/number/8.svg');
+				game.load.image('7', './static/image/number/7.svg');
+				game.load.image('6', './static/image/number/6.svg');
+				game.load.image('5', './static/image/number/5.svg');
+				game.load.image('4', './static/image/number/4.svg');
+				game.load.image('3', './static/image/number/3.svg');
+				game.load.image('2', './static/image/number/2.svg');
+				game.load.image('1', './static/image/number/1.svg');
+				game.load.image('0', './static/image/number/0.svg');
 				game.load.audio('bgMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/bgMusic.mp3');
-				game.load.audio('scoreMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/addscore.mp3');
-				game.load.audio('bombMusic', '//24haowan-cdn.shanyougame.com/pickApple2/assets/audio/boom.mp3');
 				// 添加进度文字
 				var progressText = game.add.text(game.world.centerX, game.world.centerY, '0%', {
 					fontSize: '60px',
@@ -115,8 +113,6 @@
 		// 游戏场景
 		play: function() {
 			var numbers; // 苹果
-			var scoreMusic;
-			var bombMusic;
 			var bgMusic;
 			var numberTypes;
 			// 添加苹果组
@@ -155,9 +151,6 @@
 					bgMusic = game.add.audio('bgMusic');
 					bgMusic.loopFull();
 				}
-				// 缓存其他音乐
-				scoreMusic = game.add.audio('scoreMusic');
-				bombMusic = game.add.audio('bombMusic');
 				// 添加背景
 				var bg = game.add.image(0, 0, 'bg');
 				bg.width = game.world.width;
