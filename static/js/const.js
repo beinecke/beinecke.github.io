@@ -1,22 +1,38 @@
 export const fruits = [
 	[
-		{img:'./static/image/apple.jpg',zh:'苹果',en:'Apple'},
-		{img:'./static/image/avocado.jpg',zh:'牛油果',en:'Avocado'},
+		{img:'./static/image/fruit/apple.jpg',zh:'苹果',en:'Apple'},
+		{img:'./static/image/fruit/avocado.jpg',zh:'牛油果',en:'Avocado'},
 	],
 	[
-		{img:'./static/image/orange1.jpg',zh:'橙子',en:'Orange'},
-		{img:'./static/image/kiwifruit.jpg',zh:'猕猴桃',en:'Kiwifruit'},
+		{img:'./static/image/fruit/orange1.jpg',zh:'橙子',en:'Orange'},
+		{img:'./static/image/fruit/kiwifruit.jpg',zh:'猕猴桃',en:'Kiwifruit'},
 	],
 	[
-		{img:'./static/image/pear.jpg',zh:'梨',en:'Pear'},
-		{img:'./static/image/pitaya.jpg',zh:'火龙果',en:'Pitaya'},
+		{img:'./static/image/fruit/pear.jpg',zh:'梨',en:'Pear'},
+		{img:'./static/image/fruit/pitaya.jpg',zh:'火龙果',en:'Pitaya'},
 	],
 	[
-		{img:'./static/image/peach.jpg',zh:'桃子',en:'Peach'},
-		{img:'./static/image/berry.jpg',zh:'红草莓',en:'Straberry'},
+		{img:'./static/image/fruit/peach.jpg',zh:'桃子',en:'Peach'},
+		{img:'./static/image/fruit/berry.jpg',zh:'红草莓',en:'Straberry'},
 	],
 	[
-		{img:'./static/image/grape.jpeg',zh:'葡萄',en:'Grape'},
-		{img:'./static/image/banana.jpeg',zh:'香蕉',en:'Banana'},
+		{img:'./static/image/fruit/grape.jpeg',zh:'葡萄',en:'Grape'},
+		{img:'./static/image/fruit/banana.jpeg',zh:'香蕉',en:'Banana'},
+	],
+	[
+		{img:'./static/image/fruit/lanmei.jpg',zh:'蓝莓',en:'Blueberry'},
+		{img:'./static/image/fruit/lizhi.jpg',zh:'荔枝',en:'Litchi'},
+	],
+	[
+		{img:'./static/image/fruit/mango.jpeg',zh:'芒果',en:'Mango'},
+		{img:'./static/image/fruit/watermelon.jpeg',zh:'香蕉',en:'Watermelon'},
+	],
+	[
+		{img:'./static/image/vegetable/nangua.jpg',zh:'南瓜',en:'Pumpkin'},
+		{img:'./static/image/vegetable/qiezi.jpg',zh:'茄子',en:'Eggplant'},
+	],
+	[
+		{img:'./static/image/vegetable/qingjiao.jpeg',zh:'青椒',en:'Pepper'},
+		{img:'./static/image/vegetable/tomato.jpeg',zh:'西红柿',en:'Tomato'},
 	],
 ]
