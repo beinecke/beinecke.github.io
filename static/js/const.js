@@ -21,18 +21,18 @@ export const fruits = [
 	],
 	[
 		{img:'./static/image/fruit/lanmei.jpg',zh:'蓝莓',en:'Blueberry'},
-		{img:'./static/image/fruit/lizhi.jpg',zh:'荔枝',en:'Litchi'},
+		{img:'./static/image/fruit/lizhi.jpeg',zh:'荔枝',en:'Litchi'},
 	],
 	[
-		{img:'./static/image/fruit/mango.jpeg',zh:'芒果',en:'Mango'},
-		{img:'./static/image/fruit/watermelon.jpeg',zh:'香蕉',en:'Watermelon'},
+		{img:'./static/image/fruit/mango.png',zh:'芒果',en:'Mango'},
+		{img:'./static/image/fruit/watermelon.png',zh:'香蕉',en:'Watermelon'},
 	],
 	[
-		{img:'./static/image/vegetable/nangua.jpg',zh:'南瓜',en:'Pumpkin'},
-		{img:'./static/image/vegetable/qiezi.jpg',zh:'茄子',en:'Eggplant'},
+		{img:'./static/image/vegetable/nangua.jpeg',zh:'南瓜',en:'Pumpkin'},
+		{img:'./static/image/vegetable/qiezi.jpeg',zh:'茄子',en:'Eggplant'},
 	],
 	[
 		{img:'./static/image/vegetable/qingjiao.jpeg',zh:'青椒',en:'Pepper'},
-		{img:'./static/image/vegetable/tomato.jpeg',zh:'西红柿',en:'Tomato'},
+		{img:'./static/image/vegetable/tomato.jpg',zh:'西红柿',en:'Tomato'},
 	],
 ]
