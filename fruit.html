@@ -10,10 +10,10 @@
 <div id="app">
 	<el-switch v-model="bEnglish" id="switch" active-color="#13ce66"
 			   inactive-color="#ff4949" class="mt20">{{bEnglish?'英文':'中文'}}</el-switch>
-	<el-carousel :autoplay="false" arrow="always">
+	<el-carousel :autoplay="false" arrow="always" ref="carousel">
 		<el-carousel-item v-for="(item,index) in list"  :key="index">
 			<el-row style="height: 100%">
-				<el-col :span="12" class="image-wrap" v-for="ele in item">
+				<el-col :span="12" class="image-wrap" v-for="ele in item" :key="ele.en">
 					<img :src="ele.img" @click="fPlay(ele)">
 				</el-col>
 			</el-row>
@@ -37,12 +37,23 @@
 				bEnglish:false,
 			}
 		},
+		created(){
+			document.body.addEventListener('keyup', this.fSwitch, false)
+		},
 		methods: {
 			fPlay(item){
 				let audio =document.querySelector('#audio'),lang = this.bEnglish?'en':'zh';
 				audio.src = 'http://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
 				audio.play();
 			},
+			fSwitch(e){
+				if(e.keyCode == 37 || e.keyCode == 38){
+					this.$refs.carousel.prev();
+				}
+				if(e.keyCode == 39 || e.keyCode == 40){
+					this.$refs.carousel.next();
+				}
+			}
 		}
 	})
 </script>
