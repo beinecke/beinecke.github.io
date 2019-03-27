@@ -9,9 +9,12 @@
 <div id="app">
 	<mt-switch v-model="bEnglish" id="switch">{{bEnglish?'英文':'中文'}}</mt-switch>
 	<mt-swipe :auto="0">
-		<mt-swipe-item v-for="(item,index) in list"  :key="index">
-			<div class="image-wrap" v-for="ele in item">
-				<img :src="ele.img" @click="fPlay(ele)">
+		<mt-swipe-item v-for="num in list.length/2"  :key="num">
+			<div class="image-wrap" :key="list[2*num-2].en">
+				<img :src="list[2*num-2].img" @click="fPlay(list[2*num-2])">
+			</div>
+			<div class="image-wrap" :key="list[2*num-1].en">
+				<img :src="list[2*num-1].img" @click="fPlay(list[2*num-1])">
 			</div>
 		</mt-swipe-item>
 	</mt-swipe>
@@ -24,11 +27,12 @@
 <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
 <script type="module">
 	import { fruits } from './static/js/const.js'
+	import { shuffle } from './static/js/utils.js'
 	new Vue({
 		el: '#app',
 		data: function() {
 			return {
-				list:fruits,
+				list:shuffle(fruits),
 				bEnglish:false,
 			}
 		},
