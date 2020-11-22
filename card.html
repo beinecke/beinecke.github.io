@@ -41,12 +41,15 @@
 <script type="module">
 	import { CARDOBJ,arr,venderObj } from './static/js/const.js'
 	import { fRandomArr,fCompareArr } from './static/js/utils.js'
+	const currentStep = 88;
+	const venderArr = fRandomArr(Object.values(venderObj).slice(0,currentStep));
+
 	new Vue({
 		el: '#app',
 		data: function() {
 			return {
 				list:fRandomArr(arr),
-				charArr:Object.values(venderObj).splice(31),
+				charArr:venderArr.slice(0,31),
 				cardObj:CARDOBJ,
 				leftIndex:0,
 				scoreArr:[0,0],
@@ -58,7 +61,6 @@
 			fClickBtn(item,scoreIndex){
 				this.currentItemIndex = 0;
 				let otherArrIndex = scoreIndex == 0 ? this.leftIndex+1:this.leftIndex;
-				console.log('otherArrIndex',otherArrIndex);
 				let otherArr = this.cardObj[this.list[otherArrIndex]];
 				if(otherArr.indexOf(item) >= 0){
 					this.currentItemIndex = item;
