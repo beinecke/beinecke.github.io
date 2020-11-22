@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="./static/css/quicklayout.css">
+	<link rel="stylesheet" href="./static/css/mint-ui@2.2.13_style.css">
+</head>
+<body>
+<div id="app">
+	<div class="col" id="member_1">
+		<p class="tc score">{{scoreArr[0]}}</p>
+		<div class="btnwrapper">
+			<mt-button type="danger" size="large"
+					   v-for="item in cardObj[list[leftIndex]]"
+					   :key="item"
+					   @click="fClickBtn(item,0)"
+					   :disabled="currentItemIndex != ''"
+					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item]}}</mt-button>
+		</div>
+		<mt-button type="danger" class="winner" v-if="bOver&&(scoreArr[0]>scoreArr[1])">Winner!</mt-button>
+	</div>
+	<div class="col" id="member_2">
+		<p class="tc score">{{scoreArr[1]}}</p>
+		<div class="btnwrapper">
+			<mt-button type="primary" size="large"
+					   v-for="item in cardObj[list[leftIndex+1]]"
+					   :key="item"
+					   :disabled="currentItemIndex != ''"
+					   @click="fClickBtn(item,1)"
+					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item]}}</mt-button>
+		</div>
+		<mt-button type="danger" class="winner" v-if="bOver&&(scoreArr[0]<scoreArr[1])">Winner!</mt-button>
+	</div>
+</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="./static/js/vue@2.6.12.js"></script>
+<!-- 引入组件库 -->
+<script src="./static/js/mint-ui@2.2.13_index.js"></script>
+<script type="module">
+	import { CARDOBJ,arr,venderObj } from './static/js/const.js'
+	import { fRandomArr,fCompareArr } from './static/js/utils.js'
+	new Vue({
+		el: '#app',
+		data: function() {
+			return {
+				list:fRandomArr(arr),
+				charArr:Object.values(venderObj).splice(31),
+				cardObj:CARDOBJ,
+				leftIndex:0,
+				scoreArr:[0,0],
+				bOver:false,
+				currentItemIndex:'',
+			}
+		},
+		methods: {
+			fClickBtn(item,scoreIndex){
+				this.currentItemIndex = 0;
+				let otherArrIndex = scoreIndex == 0 ? this.leftIndex+1:this.leftIndex;
+				console.log('otherArrIndex',otherArrIndex);
+				let otherArr = this.cardObj[this.list[otherArrIndex]];
+				if(otherArr.indexOf(item) >= 0){
+					this.currentItemIndex = item;
+					this.scoreArr[scoreIndex]++;
+					setTimeout(()=>{
+						this.leftIndex = this.leftIndex+2;
+						this.currentItemIndex = '';
+					},1200)
+				}
+				if(this.scoreArr[0]+this.scoreArr[1]==15){
+					this.bOver = true;
+				}
+			},
+			fClick(){
+				for(let index= 0;index<29;index++){
+					for(let i= index+1;i<30;i++){
+						if(fCompareArr(this.cardObj[index],this.cardObj[i])){
+//						console.log(i,this.cardObj[i],'true')
+						}else{
+							console.log(index,i,'false')
+						}
+					}
+				}
+			}
+		}
+	})
+</script>
+<style>
+	html,body {
+		height: 100%;
+		width: 100%;
+	}
+	#app{
+		height: 100%;
+		width: 100%;
+		position: relative;
+		display: flex;
+	}
+	.col{
+		width: 50%;
+		height: 100%;
+		border:1px solid red;
+		box-sizing: border-box;
+		text-align: center;
+	}
+	.btnwrapper{
+		width: 100%;
+		height:100%;
+		position: relative;
+	}
+	#member_1{
+		background-color: rgba(22,22,22,0.2);
+	}
+	.score{
+		font-size: 36px;
+		color: #191919;
+	}
+	.itemBtn{
+		width: 160px;
+		position: absolute;
+		height: 80px;
+		font-size: 48px;
+		transition:all 0.5s;
+		opacity: 0.8;
+	}
+	.active{
+		height: 160px;
+		font-size: 60px;
+		opacity: 1;
+		border-radius: 50%;
+	}
+	.active.is-disabled {
+		opacity: 1;
+	}
+	.itemBtn:first-child{
+		top:10%;
+	    left:50%;
+		transform: translate(-50%,-50%);
+	}
+	.itemBtn:nth-child(2){
+		top:30%;
+		left: 2%;
+		transform: translate(0%,-50%);
+	}
+	.itemBtn:nth-child(3){
+		top:30%;
+		right: 2%;
+		transform: translate(0%,-50%);
+	}
+	.itemBtn:nth-child(4){
+		top:50%;
+		left: 2%;
+		transform: translate(0%,-50%);
+	}
+	.itemBtn:nth-child(5){
+		top:50%;
+		right: 2%;
+		transform: translate(0%,-50%);
+	}
+	.itemBtn:nth-child(6){
+		top:70%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+	.winner{
+
+	}
+</style>
+</html>

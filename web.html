@@ -25,6 +25,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- 引入组件库 -->
 <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+https://fanyi.baidu.com/gettts?lan=zh&text=%E9%A6%99%E8%95%89&spd=5&source=web
 <script type="module">
 	import { fruits } from './static/js/const.js'
 	import { shuffle } from './static/js/utils.js'
@@ -39,7 +40,7 @@
 		methods: {
 			fPlay(item){
 				let audio =document.querySelector('#audio'),lang = this.bEnglish?'en':'zh';
-				audio.src = 'http://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
+				audio.src = 'https://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
 				audio.play();
 			},
 		}

@@ -9,3 +9,17 @@ export function shuffle(arr){
 		})
 	return sor;
 }
+
+export function fRandomArr(arr) {
+	return arr.sort(() => {return Math.random()-0.5});
+}
+
+export function fCompareArr(arr1,arr2) {
+	let bol = false;
+	arr1.forEach(el => {
+		if(arr2.indexOf(el)>-1){
+			bol = true;
+		}
+	})
+	return bol;
+}
