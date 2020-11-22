@@ -16,7 +16,7 @@
 					   :key="item"
 					   @click="fClickBtn(item,0)"
 					   :disabled="currentItemIndex != ''"
-					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item]}}</mt-button>
+					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</mt-button>
 		</div>
 		<mt-button type="danger" class="winner" v-if="bOver&&(scoreArr[0]>scoreArr[1])">Winner!</mt-button>
 	</div>
@@ -28,7 +28,7 @@
 					   :key="item"
 					   :disabled="currentItemIndex != ''"
 					   @click="fClickBtn(item,1)"
-					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item]}}</mt-button>
+					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</mt-button>
 		</div>
 		<mt-button type="danger" class="winner" v-if="bOver&&(scoreArr[0]<scoreArr[1])">Winner!</mt-button>
 	</div>
