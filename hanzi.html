@@ -108,13 +108,13 @@
 						value: '12'
 					}
 				],
-				num: 10,
-				numOptions:[5,10,15,20,25,30]
+				num: '10',
+				numOptions:['5','10','15','20','25','30']
 			}
 		},
 		methods: {
 			fStart() {
-				this.list = fRandomArr(hanziObj[this.index]).slice(0,this.num)
+				this.list = fRandomArr(hanziObj[this.index]).slice(0,parseFloat(this.num))
 				this.bChoose = false;
 			},
 			fNext(bol) {
@@ -130,7 +130,7 @@
 				this.wrongList = []
 				this.currentIndex = 0
 				this.index = '2'
-				this.num = 10
+				this.num = '10'
 				this.bChoose = true;
 			}
 		}
