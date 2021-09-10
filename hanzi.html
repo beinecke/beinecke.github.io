@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="app">
-	<div id="page_1" v-if="bChoose">
+	<div class="page_1" v-if="bChoose">
 		<p class="title">选择字库</p>
 		<mt-radio
 			v-model="index"
@@ -147,10 +147,14 @@
 		box-sizing: border-box;
 		padding: 50px 30px;
 	}
+	.page_1 .mint-cell-wrapper{
+		font-size: 36px;
+		line-height: 80px;
+	}
 	.title {
-		font-size: 24px;
+		font-size: 48px;
 		text-align: center;
-		margin: 20px 0;
+		margin: 50px 0;
 	}
 	.mint-radiolist .mint-cell {
 		padding-left: 20px;
@@ -170,12 +174,14 @@
 	.mint-button--large {
 		font-size: 100px;
 		height: 140px;
+		line-height: 140px;
 	}
 	.mint-button--normal{
 		margin-top: 50px;
 		width: 45%;
 		font-size: 100px;
 		height: 140px;
+		line-height: 140px;
 	}
 	.result{
 		font-size: 80px;
