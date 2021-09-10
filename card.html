@@ -10,7 +10,7 @@
 <div id="app">
 	<div class="col" id="member_1">
 		<p class="tc score">{{scoreArr[0]}}</p>
-		<div class="btnwrapper">
+		<div class="btnwrapper" v-if="!bOver">
 			<mt-button type="danger" size="large"
 					   v-for="item in cardObj[list[leftIndex]]"
 					   :key="item"
@@ -18,11 +18,11 @@
 					   :disabled="currentItemIndex != ''"
 					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</mt-button>
 		</div>
-		<mt-button type="danger" class="winner" v-if="bOver&&(scoreArr[0]>scoreArr[1])">Winner!</mt-button>
+	<mt-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</mt-button>
 	</div>
 	<div class="col" id="member_2">
 		<p class="tc score">{{scoreArr[1]}}</p>
-		<div class="btnwrapper">
+		<div class="btnwrapper" v-if="!bOver">
 			<mt-button type="primary" size="large"
 					   v-for="item in cardObj[list[leftIndex+1]]"
 					   :key="item"
@@ -30,7 +30,7 @@
 					   @click="fClickBtn(item,1)"
 					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</mt-button>
 		</div>
-		<mt-button type="danger" class="winner" v-if="bOver&&(scoreArr[0]<scoreArr[1])">Winner!</mt-button>
+		<mt-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</mt-button>
 	</div>
 </div>
 </body>
@@ -166,7 +166,10 @@
 		transform: translate(-50%,-50%);
 	}
 	.winner{
-
+		width:240px;
+		height:180px;
+		font-size: 60px;
+		mrgint-top:30px;
 	}
 </style>
 </html>
