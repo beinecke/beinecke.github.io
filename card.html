@@ -4,71 +4,102 @@
 	<meta charset="UTF-8">
 	<!-- 引入样式 -->
 	<link rel="stylesheet" href="./static/css/quicklayout.css">
-	<link rel="stylesheet" href="./static/css/mint-ui@2.2.13_style.css">
+	<!--<link rel="stylesheet" href="./static/css/mint-ui@2.2.13_style.css">-->
+	<link rel="stylesheet" href="./static/vender/element-ui@2.3.4/index.css">
 </head>
 <body>
 <div id="app">
-	<div class="col" id="member_1">
-		<p class="tc score">{{scoreArr[0]}}</p>
-		<div class="btnwrapper" v-if="!bOver">
-			<mt-button type="danger" size="large"
-					   v-for="item in cardObj[list[leftIndex]]"
-					   :key="item"
-					   @click="fClickBtn(item,0)"
-					   :disabled="currentItemIndex != ''"
-					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</mt-button>
-		</div>
-	<mt-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</mt-button>
+	<div id="step1" v-if="bShowStep1" class="tc">
+		<el-slider
+			v-model="range"
+			range
+			show-stops
+			:step="50"
+			:max="1200">
+		</el-slider>
+		<el-button type="danger" class="winner" style="margin-top: 50px" @click="fSlelectRange" :disabled="range[1]-range[0]==0">开始</el-button>
 	</div>
-	<div class="col" id="member_2">
-		<p class="tc score">{{scoreArr[1]}}</p>
-		<div class="btnwrapper" v-if="!bOver">
-			<mt-button type="primary" size="large"
-					   v-for="item in cardObj[list[leftIndex+1]]"
-					   :key="item"
-					   :disabled="currentItemIndex != ''"
-					   @click="fClickBtn(item,1)"
-					   :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</mt-button>
-		</div>
-		<mt-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</mt-button>
-	</div>
+	<el-row id="step2" v-else>
+		<el-col :span="12" id="member_1">
+			<p class="tc score">{{scoreArr[0]}}</p>
+			<div class="btnwrapper" v-if="!bOver">
+				<el-button type="danger" size="large"
+									 v-for="item in cardObj[list[leftIndex]]"
+									 :key="item"
+									 @click="fClickBtn(item,0)"
+									 :disabled="currentItemIndex != ''"
+									 :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</el-button>
+			</div>
+			<el-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</el-button>
+		</el-col>
+		<el-col :span="12" id="member_2">
+			<p class="tc score">{{scoreArr[1]}}</p>
+			<div class="btnwrapper" v-if="!bOver">
+				<el-button type="primary" size="large"
+									 v-for="item in cardObj[list[leftIndex+1]]"
+									 :key="item"
+									 :disabled="currentItemIndex != ''"
+									 @click="fClickBtn(item,1)"
+									 :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</el-button>
+			</div>
+			<el-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</el-button>
+		</el-col>
+	</el-row>
 </div>
 </body>
 <!-- 先引入 Vue -->
 <script src="./static/js/vue@2.6.12.js"></script>
 <!-- 引入组件库 -->
-<script src="./static/js/mint-ui@2.2.13_index.js"></script>
+<!--<script src="./static/js/mint-ui@2.2.13_index.js"></script>-->
+<!-- import JavaScript -->
+<script src="./static/vender/element-ui@2.3.4/index.js"></script>
 <script type="module">
 	import { CARDOBJ,arr,venderObj } from './static/js/const.js'
 	import { fRandomArr,fCompareArr } from './static/js/utils.js'
-	const currentStep = 88;
+	const scoreAudio = new Audio('./static/audio/addscore.mp3')
+	const boomAudio = new Audio('./static/audio/boom.mp3')
+	const currentStep = 100;
 	const venderArr = fRandomArr(Object.values(venderObj).slice(0,currentStep));
-
+	const RAMCARDOBJ = {}
+	for (let indexNum in CARDOBJ){
+		RAMCARDOBJ[indexNum] = fRandomArr(CARDOBJ[indexNum])
+	}
 	new Vue({
 		el: '#app',
 		data: function() {
 			return {
+				range:[0,100],
 				list:fRandomArr(arr),
-				charArr:venderArr.slice(0,31),
-				cardObj:CARDOBJ,
+				charArr:[],
+				cardObj:RAMCARDOBJ,
 				leftIndex:0,
 				scoreArr:[0,0],
 				bOver:false,
 				currentItemIndex:'',
+				bShowStep1: true,
+				venderArr: [],
 			}
 		},
 		methods: {
+			fSlelectRange(){
+				this.venderArr = fRandomArr(Object.values(venderObj).slice(this.range[0],this.range[1]));
+				this.charArr = this.venderArr.slice(0,31)
+				this.bShowStep1 = false
+			},
 			fClickBtn(item,scoreIndex){
 				this.currentItemIndex = 0;
 				let otherArrIndex = scoreIndex == 0 ? this.leftIndex+1:this.leftIndex;
 				let otherArr = this.cardObj[this.list[otherArrIndex]];
 				if(otherArr.indexOf(item) >= 0){
+					scoreAudio.play()
 					this.currentItemIndex = item;
 					this.scoreArr[scoreIndex]++;
 					setTimeout(()=>{
 						this.leftIndex = this.leftIndex+2;
 						this.currentItemIndex = '';
 					},1200)
+				}else{
+					boomAudio.play()
 				}
 				if(this.scoreArr[0]+this.scoreArr[1]==15){
 					this.bOver = true;
@@ -97,7 +128,15 @@
 		height: 100%;
 		width: 100%;
 		position: relative;
-		display: flex;
+	}
+	#step1{
+		padding: 100px 50px;
+	}
+	#step2{
+		height: 100%;
+	}
+	#step2 .el-col-12{
+		height: 100%;
 	}
 	.col{
 		width: 50%;

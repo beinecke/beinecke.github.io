@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<!-- import CSS -->
 	<link rel="stylesheet" href="./static/css/quicklayout.css">
-	<link rel="stylesheet" href="https://unpkg.com/element-ui@2.3.4/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="./static/vender/element-ui@2.3.4/index.css">
+	<!--<link rel="stylesheet" href="https://unpkg.com/element-ui@2.3.4/lib/theme-chalk/index.css">-->
 </head>
 <body>
 <div id="app">
@@ -26,9 +27,11 @@
 </div>
 </body>
 <!-- import Vue before Element -->
-<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<!--<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>-->
+<script src="./static/js/vue@2.6.12.js"></script>
 <!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui@2.3.4/lib/index.js"></script>
+<script src="./static/vender/element-ui@2.3.4/index.js"></script>
+<!--<script src="https://unpkg.com/element-ui@2.3.4/lib/index.js"></script>-->
 <script type="module">
 	import { fruits } from './static/js/const.js'
 	import { shuffle } from './static/js/utils.js'
@@ -48,8 +51,14 @@
 		methods: {
 			fPlay(item){
 				let audio =document.querySelector('#audio'),lang = this.bEnglish?'en':'zh';
-				audio.src = 'http://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
+				debugger
+				audio.crossOrigin = 'anonymous';
+				audio.src = 'https://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
 				audio.play();
+//				let lang = this.bEnglish?'en':'zh'
+//				let src = 'https://fanyi.baidu.com/gettts?lan='+ lang +'&text='+item[lang]+'&spd=5&source=web';
+//				let audio = new Audio(src)
+//				audio.play()
 			},
 			fSwitch(e){
 				if(e.keyCode == 37 || e.keyCode == 38){
