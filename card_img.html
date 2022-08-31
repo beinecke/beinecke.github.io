@@ -29,7 +29,7 @@
 					<img :src="'./static/image/svg/'+charArr[item-1]" class="btn_img">
 				</el-button>
 			</div>
-			<el-button class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</el-button>
+			<el-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</el-button>
 		</el-col>
 		<el-col :span="12" id="member_2">
 			<p class="tc score">{{scoreArr[1]}}</p>
@@ -43,7 +43,7 @@
 					<img :src="'./static/image/svg/'+charArr[item-1]" class="btn_img">
 				</el-button>
 			</div>
-			<el-button class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</el-button>
+			<el-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</el-button>
 		</el-col>
 	</el-row>
 </div>
@@ -129,6 +129,8 @@
 	}
 	#step2 .el-col-12{
 		height: 100%;
+		position: relative;
+		text-align: center;
 	}
 	.col{
 		width: 50%;
@@ -141,18 +143,24 @@
 		width: 100%;
 		height:100%;
 		position: relative;
+		box-sizing: border-box;
+		padding-top: 80px;
 	}
 	#member_1{
 		background-color: rgba(22,22,22,0.2);
 	}
 	.score{
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
 		font-size: 36px;
 		color: #191919;
 	}
 	.itemBtn{
 		width: 160px;
 		position: absolute;
-		height: 80px;
+		height: 35%;
 		font-size: 48px;
 		transition:all 0.5s;
 		background-color: transparent;
@@ -160,49 +168,53 @@
 	}
 	.itemBtn .btn_img{
 		width: 100%;
+		max-height: 200px;
 	}
-	.itemBtn.active{
-		width: 240px;
-		z-index: 999;
+	.itemBtn.active .btn_img{
+		transform: scale(1.4);
+		transition-duration: 0.3s;
 	}
 	.active.is-disabled {
 		opacity: 1;
 	}
 	.itemBtn:first-child{
-		top:10%;
-	    left:50%;
+		top:20%;
+		left:50%;
 		transform: translate(-50%,-50%);
 	}
 	.itemBtn:nth-child(2){
-		top:30%;
-		left: 2%;
+		top:40%;
+		left: 5%;
 		transform: translate(0%,-50%);
 	}
 	.itemBtn:nth-child(3){
-		top:30%;
-		right: 2%;
+		top:40%;
+		right: 5%;
 		transform: translate(0%,-50%);
 	}
 	.itemBtn:nth-child(4){
-		top:50%;
-		left: 2%;
+		top:65%;
+		left: 5%;
 		transform: translate(0%,-50%);
 	}
 	.itemBtn:nth-child(5){
-		top:50%;
-		right: 2%;
+		top:65%;
+		right: 5%;
 		transform: translate(0%,-50%);
 	}
 	.itemBtn:nth-child(6){
-		top:70%;
+		top:80%;
 		left: 50%;
 		transform: translate(-50%,-50%);
+	}
+	.itemBtn.active{
+		z-index: 999;
 	}
 	.winner{
 		width:240px;
 		height:180px;
 		font-size: 60px;
-		mrgint-top:30px;
+		margin-top: 100px;
 	}
 </style>
 </html>
