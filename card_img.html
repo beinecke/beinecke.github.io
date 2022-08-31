@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>图片对对碰</title>
 	<meta charset="UTF-8">
 	<!-- 引入样式 -->
 	<link rel="stylesheet" href="./static/css/quicklayout.css">
@@ -9,40 +10,40 @@
 </head>
 <body>
 <div id="app">
-	<div id="step1" v-if="bShowStep1" class="tc">
-		<el-slider
-			v-model="range"
-			range
-			show-stops
-			:step="50"
-			:max="1200">
-		</el-slider>
-		<el-button type="danger" class="winner" style="margin-top: 50px" @click="fSlelectRange" :disabled="range[1]-range[0]==0">开始</el-button>
-	</div>
-	<el-row id="step2" v-else>
+	<!--<div style="display: flex">-->
+		<!--<el-card v-for="img in venderArr" style="width: 200px">-->
+			<!--<img :src="'./static/image/svg/'+img" style="width: 100%">-->
+			<!--<p>{{img}}</p>-->
+		<!--</el-card>-->
+	<!--</div>-->
+	<el-row id="step2">
 		<el-col :span="12" id="member_1">
 			<p class="tc score">{{scoreArr[0]}}</p>
 			<div class="btnwrapper" v-if="!bOver">
-				<el-button type="danger" size="large"
+				<el-button type="text" size="large"
 									 v-for="item in cardObj[list[leftIndex]]"
 									 :key="item"
 									 @click="fClickBtn(item,0)"
 									 :disabled="currentItemIndex != ''"
-									 :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</el-button>
+									 :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">
+					<img :src="'./static/image/svg/'+charArr[item-1]" class="btn_img">
+				</el-button>
 			</div>
-			<el-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</el-button>
+			<el-button class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]>0)">Winner!</el-button>
 		</el-col>
 		<el-col :span="12" id="member_2">
 			<p class="tc score">{{scoreArr[1]}}</p>
 			<div class="btnwrapper" v-if="!bOver">
-				<el-button type="primary" size="large"
+				<el-button type="text" size="large"
 									 v-for="item in cardObj[list[leftIndex+1]]"
 									 :key="item"
 									 :disabled="currentItemIndex != ''"
 									 @click="fClickBtn(item,1)"
-									 :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">{{charArr[item-1]}}</el-button>
+									 :class="['mt20','itemBtn',{'active':currentItemIndex == item}]">
+					<img :src="'./static/image/svg/'+charArr[item-1]" class="btn_img">
+				</el-button>
 			</div>
-			<el-button type="danger" class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</el-button>
+			<el-button class="winner" v-if="bOver && (scoreArr[0]-scoreArr[1]<0)">Winner!</el-button>
 		</el-col>
 	</el-row>
 </div>
@@ -54,12 +55,11 @@
 <!-- import JavaScript -->
 <script src="./static/vender/element-ui@2.3.4/index.js"></script>
 <script type="module">
-	import { CARDOBJ,arr,venderObj } from './static/js/const.js'
+	import { CARDOBJ,arr,imgsrc } from './static/js/const.js'
 	import { fRandomArr,fCompareArr } from './static/js/utils.js'
 	const scoreAudio = new Audio('./static/audio/addscore.mp3')
 	const boomAudio = new Audio('./static/audio/boom.mp3')
-	const currentStep = 100;
-	const venderArr = fRandomArr(Object.values(venderObj).slice(0,currentStep));
+	const venderArr = fRandomArr(Object.values(imgsrc));
 	const RAMCARDOBJ = {}
 	for (let indexNum in CARDOBJ){
 		RAMCARDOBJ[indexNum] = fRandomArr(CARDOBJ[indexNum])
@@ -68,24 +68,17 @@
 		el: '#app',
 		data: function() {
 			return {
-				range:[0,100],
 				list:fRandomArr(arr),
-				charArr:[],
+				charArr:venderArr.slice(0,31),
 				cardObj:RAMCARDOBJ,
 				leftIndex:0,
 				scoreArr:[0,0],
 				bOver:false,
 				currentItemIndex:'',
-				bShowStep1: true,
-				venderArr: [],
+				venderArr:venderArr,
 			}
 		},
 		methods: {
-			fSlelectRange(){
-				this.venderArr = fRandomArr(Object.values(venderObj).slice(this.range[0],this.range[1]));
-				this.charArr = this.venderArr.slice(0,31)
-				this.bShowStep1 = false
-			},
 			fClickBtn(item,scoreIndex){
 				this.currentItemIndex = 0;
 				let otherArrIndex = scoreIndex == 0 ? this.leftIndex+1:this.leftIndex;
@@ -109,7 +102,6 @@
 				for(let index= 0;index<29;index++){
 					for(let i= index+1;i<30;i++){
 						if(fCompareArr(this.cardObj[index],this.cardObj[i])){
-//						console.log(i,this.cardObj[i],'true')
 						}else{
 							console.log(index,i,'false')
 						}
@@ -163,13 +155,15 @@
 		height: 80px;
 		font-size: 48px;
 		transition:all 0.5s;
-		opacity: 0.8;
+		background-color: transparent;
+		border-width: 0px;
 	}
-	.active{
-		height: 160px;
-		font-size: 60px;
-		opacity: 1;
-		border-radius: 50%;
+	.itemBtn .btn_img{
+		width: 100%;
+	}
+	.itemBtn.active{
+		width: 240px;
+		z-index: 999;
 	}
 	.active.is-disabled {
 		opacity: 1;
@@ -209,7 +203,6 @@
 		height:180px;
 		font-size: 60px;
 		mrgint-top:30px;
-		text-align: center;
 	}
 </style>
 </html>
