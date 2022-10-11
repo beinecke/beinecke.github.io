@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>安安古诗词记录</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
 	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
 </head>
 <body>
@@ -20,6 +21,9 @@
 					</h3>
 				</div>
 			</div>
+			<a id="scrolltop" href="#list" class="fixed block right-2 bottom-2 w-8 h-8 animate-bounce">
+				<img src="./static/image/icons/toTop.svg" class="w-full text-green-600">
+			</a>
 			<div class="">
 				<div v-for="el in poems" :id="el.id" class="text-sm mt-1 pt-2 ">
 					<h4 class="mb-1">
