@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>安安古诗词记录</title>
+	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
+</head>
+<body>
+	<div id="app" class="xl:container xl:mx-auto border-solid border-2 border-blue-500">
+		<div id="list" class="px-8 py-4">
+			<h1 class="text-center mb-2">古诗背诵记录表</h1>
+			<div class="grid grid-cols-1 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
+				<div v-for="poem in poems">
+					<h3 class="text-sm">
+						<a :href="'#'+poem.id">
+							<span>{{poem.id}}</span>
+							<span>{{poem.title}}</span>
+							<span class="text-xs text-gray-400">{{poem.date}}</span>
+						</a>
+					</h3>
+				</div>
+			</div>
+			<div class="">
+				<div v-for="el in poems" :id="el.id" class="text-sm mt-1 pt-2 ">
+					<h4 class="mb-1">
+						<span>{{el.id}}</span>
+						{{el.title}}
+						<span class="text-xs text-gray-600">{{el.poet}}</span>
+					</h4>
+					<div>
+						<div v-for="(p,index) in el.content">
+							<p v-if="index%2 == 0"><span>{{p }}</span><span>{{el.content[index+1]}}</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="./static/js/vue@2.6.12.js"></script>
+<!-- 引入组件库 -->
+<script src="./static/vender/element-ui@2.3.4/index.js"></script>
+<script type="module">
+	import { poems } from './static/js/poems.js'
+	new Vue({
+		el: '#app',
+		data: function() {
+			return {
+				poems: poems,
+			}
+		},
+		methods: {
+		}
+	})
+</script>
+</html>
