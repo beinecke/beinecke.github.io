@@ -8,13 +8,13 @@
 </head>
 <body>
 	<div id="app" class="xl:container xl:mx-auto border-solid border-2 border-blue-500">
-		<div id="list" class="px-8 py-4">
-			<h1 class="text-center mb-2">古诗背诵记录表</h1>
+		<div id="list" class="px-8 py-2">
+			<h1 class="text-center my-2">古诗背诵记录表</h1>
 			<div class="grid grid-cols-1 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
 				<div v-for="poem in poems">
 					<h3 class="text-sm">
 						<a :href="'#'+poem.id">
-							<span>{{poem.id}}</span>
+							<span class="inline-block w-4">{{poem.id}}</span>
 							<span>{{poem.title}}</span>
 							<span class="text-xs text-gray-400">{{poem.date}}</span>
 						</a>
