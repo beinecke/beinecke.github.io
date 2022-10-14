@@ -9,13 +9,21 @@
 <body>
 	<div id="app" class="xl:container xl:mx-auto border-solid border-2 border-blue-500">
 		<div id="list" class="px-8 py-2">
-			<h1 class="text-center my-2">古诗背诵记录表</h1>
+			<h1 class="flex justify-between my-2">
+				<span class="leading-10">古诗背诵记录表</span>
+				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
+				active:bg-red-700 transition ease-in-out duration-150">
+					测试
+				</button>
+			</h1>
 			<div class="grid grid-cols-1 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
 				<div v-for="poem in poems">
 					<h3 class="text-sm">
 						<a :href="'#'+poem.id">
 							<span class="inline-block w-4">{{poem.id}}</span>
 							<span>{{poem.title}}</span>
+							<span class="text-xs text-gray-600">{{poem.poet}}</span>
 							<span class="text-xs text-gray-400">{{poem.date}}</span>
 						</a>
 					</h3>
@@ -52,9 +60,13 @@
 		data: function() {
 			return {
 				poems: poems,
+				currentIndex: 0
 			}
 		},
 		methods: {
+			fStartTest() {
+
+			}
 		}
 	})
 </script>
