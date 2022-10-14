@@ -25,7 +25,7 @@ export function fCompareArr(arr1,arr2) {
 }
 
 //生成从minNum到maxNum的随机数
-function getRandom(minNum, maxNum) {
+export function getRandom(minNum, maxNum) {
 	switch (arguments.length) {
 		case 1:
 			return parseInt(Math.random() * minNum + 1, 10);

@@ -8,12 +8,12 @@
 </head>
 <body>
 	<div id="app" class="xl:container xl:mx-auto border-solid border-2 border-blue-500">
-		<div id="list" class="px-8 py-2">
+		<div id="list" class="px-8 py-2" v-if="!bTesting">
 			<h1 class="flex justify-between my-2">
 				<span class="leading-10">古诗背诵记录表</span>
 				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
 				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
-				active:bg-red-700 transition ease-in-out duration-150">
+				active:bg-red-700 transition ease-in-out duration-150" @click="fStartTest">
 					测试
 				</button>
 			</h1>
@@ -47,6 +47,24 @@
 				</div>
 			</div>
 		</div>
+		<div v-else>
+			<div>
+				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
+				active:bg-red-700 transition ease-in-out duration-150" @click="bTesting = false">
+					{{currentIndex}}
+				</button>
+			</div>
+			<div>
+				<div class="text-center">
+					<span>{{currentPoem.title}}</span>
+					<span>{{currentPoem.poet}}</span>
+				</div>
+				<div>
+					<p v-for="p in currentPoem.content" class="text-center">{{p}}</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <!-- 先引入 Vue -->
@@ -55,17 +73,26 @@
 <script src="./static/vender/element-ui@2.3.4/index.js"></script>
 <script type="module">
 	import { poems } from './static/js/poems.js'
+	import { getRandom } from './static/js/utils.js'
+
 	new Vue({
 		el: '#app',
 		data: function() {
 			return {
 				poems: poems,
-				currentIndex: 0
+				currentIndex: 0,
+				bTesting: false,
+			}
+		},
+		computed:{
+			'currentPoem'(){
+				return this.poems[this.currentIndex]
 			}
 		},
 		methods: {
 			fStartTest() {
-
+				this.currentIndex = getRandom(0, this.poems.length -1)
+				this.bTesting = true;
 			}
 		}
 	})
