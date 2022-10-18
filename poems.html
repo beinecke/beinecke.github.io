@@ -61,7 +61,7 @@
 					<p class="text-base text-gray-600">{{currentPoem.poet}}</p>
 				</div>
 				<div class="text-2xl leading-relaxed py-3">
-					<p v-for="(p,index) in currentPoem.content" class="text-center" v-show="index < pIndex">{{p}}</p>
+					<p v-for="(p,index) in currentPoem.content" class="text-center flyText" v-show="index < pIndex">{{p}}</p>
 				</div>
 				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
 				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
@@ -112,4 +112,23 @@
 		}
 	})
 </script>
+<style>
+	.flyText{
+		white-space:nowrap;
+		animation: textIn 1s both;
+	}
+	@keyframes textIn {
+		0% {
+			opacity: 0;
+			letter-spacing: -200px;
+		}
+		60% {
+			letter-spacing: 5px;
+		}
+		60% {
+			opacity: 1;
+			letter-spacing: 0;
+		}
+	}
+</style>
 </html>
