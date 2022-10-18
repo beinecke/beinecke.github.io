@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
 </head>
 <body>
-	<div id="app" class="xl:container xl:mx-auto border-solid border-2 border-blue-500">
+	<div id="app" class="xl:container xl:mx-auto min-h-full">
 		<div id="list" class="px-8 py-2" v-if="!bTesting">
 			<h1 class="flex justify-between my-2">
 				<span class="leading-10">古诗背诵记录表</span>
@@ -47,22 +47,27 @@
 				</div>
 			</div>
 		</div>
-		<div v-else>
+		<div v-else class="px-8 py-2 h-full">
 			<div>
 				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
 				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
 				active:bg-red-700 transition ease-in-out duration-150" @click="bTesting = false">
-					{{currentIndex}}
+					←
 				</button>
 			</div>
-			<div>
-				<div class="text-center">
-					<span>{{currentPoem.title}}</span>
-					<span>{{currentPoem.poet}}</span>
+			<div class="py-3">
+				<div class="text-center text-2xl leading-normal">
+					<p>{{currentPoem.title}}</p>
+					<p class="text-base text-gray-600">{{currentPoem.poet}}</p>
 				</div>
-				<div>
-					<p v-for="p in currentPoem.content" class="text-center">{{p}}</p>
+				<div class="text-2xl leading-relaxed py-3">
+					<p v-for="(p,index) in currentPoem.content" class="text-center" v-show="index < pIndex">{{p}}</p>
 				</div>
+				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
+				active:bg-red-700 transition ease-in-out duration-150" @click="fNext" v-if="pIndex < currentPoem.content.length">
+					下一句
+				</button>
 			</div>
 		</div>
 	</div>
@@ -82,6 +87,8 @@
 				poems: poems,
 				currentIndex: 0,
 				bTesting: false,
+				pIndex: 0,
+				pContent: [],
 			}
 		},
 		computed:{
@@ -92,7 +99,15 @@
 		methods: {
 			fStartTest() {
 				this.currentIndex = getRandom(0, this.poems.length -1)
+				this.pIndex = 0;
+				this.pContent = [];
 				this.bTesting = true;
+			},
+			fNext(){
+				if(this.pIndex <= this.currentPoem.content.length - 1){
+					this.pContent.push(this.currentPoem.content[this.pIndex])
+					this.pIndex++
+				}
 			}
 		}
 	})
