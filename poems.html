@@ -55,7 +55,7 @@
 					←
 				</button>
 			</div>
-			<div class="py-3">
+			<div class="py-3 text-center">
 				<div class="text-center text-2xl leading-normal">
 					<p>{{currentPoem.title}}</p>
 					<p class="text-base text-gray-600">{{currentPoem.poet}}</p>
@@ -65,7 +65,8 @@
 				</div>
 				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
 				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
-				active:bg-red-700 transition ease-in-out duration-150" @click="fNext" v-if="pIndex < currentPoem.content.length">
+				active:bg-red-700 transition ease-in-out duration-150"
+								@click="fNext" v-if="pIndex < currentPoem.content.length">
 					下一句
 				</button>
 			</div>
