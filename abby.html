@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小狗艾比</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
+	<link rel="stylesheet" href="./static/css/abby.css">
+</head>
+<body>
+<div id="app" class="container mx-auto min-h-full">
+	<header>
+
+	</header>
+	<div id="album" class="grid grid-cols-3">
+		<img src="https://static.wixstatic.com/media/b76e79_6866b03c1acf444daf8d161ffc9d2088~mv2.jpg/v1/fill/w_458,h_280,al_c,lg_1,q_80,enc_auto/Girl%20with%20Blocks.jpg" alt="Girl learning at preschool" style="width:100%;height:auto;object-fit:cover" >
+		<img src="https://static.wixstatic.com/media/b76e79_4a7bad4e16534f71ab83713611725e17~mv2.jpg/v1/fill/w_458,h_280,al_c,lg_1,q_80,enc_auto/Children%20with%20Elephants.jpg" alt="Children playing at preschool" style="width:100%;height:auto;object-fit:cover" >
+		<img src="https://static.wixstatic.com/media/b76e79_4153efe14ef14d7394c2ceb4cab1aa49~mv2.jpg/v1/fill/w_458,h_280,al_c,lg_1,q_80,enc_auto/Children%20Sitting.jpg" alt="Children learning outdoors" style="width:100%;height:auto;object-fit:cover" >
+	</div>
+	<h3 class="text-center">我们的使命是为全世界的儿童提供免费的教学资料. 欢迎点击下载所有的文档.</h3>
+	<div class="grid grid-cols-2 gap-4">
+		<div v-for="item in styleObj" class="item">
+			<h4 :style="{borderBottom: '6px solid '+item.color, color:item.color}">{{item.cn}}</h4>
+			<div class="grid grid-cols-2 py-2">
+				<div v-for="el in links[item.en]" class="text-center text-sm py-2">
+					<a :href="el.link" target="_blank" class="inline-block w-full h-48 flex justify-center items-center">
+						<img :src="'./static/image/thumbnail/'+el.img"  class="h-full w-auto"/>
+					</a>
+					<a :href="el.link" target="_blank" :data-en="el.text" class="py-1">{{el.text}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="./static/js/vue@2.6.12.js"></script>
+<!-- 引入组件库 -->
+<script src="./static/vender/element-ui@2.3.4/index.js"></script>
+<script type="module">
+	import { links, abbyobj, styleObj } from './static/js/abby.js'
+
+	new Vue({
+		el: '#app',
+		data: function() {
+			return {
+				links: abbyobj,
+				styleObj: styleObj
+			}
+		},
+		computed:{
+		},
+		methods: {
+		}
+	})
+</script>
+</html>
