@@ -5,13 +5,55 @@
 	<title>小狗艾比</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
 	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
-	<link rel="stylesheet" href="./static/css/abby.css">
 </head>
+<style>
+	html body{
+		min-width: 320px;
+	}
+	.container{
+		max-width: 1200px;
+	}
+	@media (max-width: 480px) {
+		.dn-small{
+			display: none;
+		}
+	}
+</style>
 <body>
+<div class="fixed w-full h-full" style="z-index: -1">
+	<img class="w-full h-full" src="https://static.wixstatic.com/media/41d000_9bace29101c0110bf92b86118c5802c4.png/v1/fill/w_1280,h_474,al_t,q_90,enc_auto/41d000_9bace29101c0110bf92b86118c5802c4.png">
+</div>
 <div id="app" class="container mx-auto min-h-full px-2">
-	<header>
-
-	</header>
+	<ul class="text-center grid grid-cols-1 fixed"
+			style="width: 25px;line-height: 25px;font-size: 14px;color: #fff;top: 50%;transform: translate(-10px,-50%)">
+		<li v-for="item in styleObj" :style="{backgroundColor: item.color}">
+			<a :href="'#'+item.en" class="py-2 inline-block w-full">{{item.cn}}</a>
+		</li>
+	</ul>
+	<p style="font-size: 14px">谨感谢原网站: <a href="https://www.abbythepup.com/home" class="underline">https://www.abbythepup.com/home</a></p>
+	<div class="grid grid-cols-1 lg:grid-cols-2">
+		<div class="flex">
+			<img style="width: 100px;height: 100px"
+				src="https://static.wixstatic.com/media/b76e79_ee7dcb5e294140739ffe46185056265a~mv2.jpg/v1/fill/w_142,h_142,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Abby%20the%20Pup.jpg" alt="Abby the Pup" style="width:71px;height:71px;object-fit:cover" srcset="https://static.wixstatic.com/media/b76e79_ee7dcb5e294140739ffe46185056265a~mv2.jpg/v1/fill/w_142,h_142,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Abby%20the%20Pup.jpg" fetchpriority="high">
+			<div class="text-center px-2 pt-3">
+				<h1 style="font-size: 36px;color: #F0B400">小狗艾比</h1>
+				<p style="font-size: 16px;"><span class="dn-small">为家长和老师</span>提供<span style="font-size: 18px;font-weight: bold">&nbsp;2900+&nbsp;</span>份幼儿学前资料</p>
+			</div>
+		</div>
+		<div style="padding: 10px 0px">
+			<p class="text-center hidden lg:block" style="height: 55px;line-height: 55px">
+				惠及200多个国家和地区超过数百万儿童
+			</p>
+			<ul class="text-center grid grid-cols-5 gap-x-px"
+					style="height: 25px;line-height: 25px;font-size: 14px;background-color: #000">
+				<li style="background-color: #ed1567"><a>首页</a></li>
+				<li style="background-color: #bfe6ff"><a href="https://www.abbythepup.com/videos">视频</a></li>
+				<li style="background-color: #bfe6ff"><a href="https://www.abbythepup.com/about-us">关于我们</a></li>
+				<li style="background-color: #bfe6ff"><a href="https://www.abbythepup.com/thank-you">感谢</a></li>
+				<li style="background-color: #bfe6ff"><a href="https://www.abbythepup.com/comments">评论</a></li>
+			</ul>
+		</div>
+	</div>
 	<div id="album" class="hidden sm:grid grid-cols-3 ">
 		<img src="https://static.wixstatic.com/media/b76e79_6866b03c1acf444daf8d161ffc9d2088~mv2.jpg/v1/fill/w_458,h_280,al_c,lg_1,q_80,enc_auto/Girl%20with%20Blocks.jpg" alt="Girl learning at preschool" style="width:100%;height:auto;object-fit:cover" >
 		<img src="https://static.wixstatic.com/media/b76e79_4a7bad4e16534f71ab83713611725e17~mv2.jpg/v1/fill/w_458,h_280,al_c,lg_1,q_80,enc_auto/Children%20with%20Elephants.jpg" alt="Children playing at preschool" style="width:100%;height:auto;object-fit:cover" >
@@ -19,7 +61,7 @@
 	</div>
 	<h3 class="text-center text-xs p-2 md:text-sm">我们的使命是为全世界的儿童提供免费的教学资料. 欢迎点击下载所有的文档.</h3>
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-		<div v-for="item in styleObj" class="item" :id="item.en">
+		<div v-for="item in styleObj" class="item px-2" :id="item.en" style="background-color: #fff">
 			<h4 :style="{borderBottom: '6px solid '+item.color, color:item.color}">{{item.cn}}</h4>
 			<div class="grid grid-cols-3 py-2 sm:grid-cols-2">
 				<div v-for="el in links[item.en]" class="text-center text-xs py-2 md:text-sm">
