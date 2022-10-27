@@ -9,9 +9,22 @@ export function shuffle(arr){
 		})
 	return sor;
 }
-
+//数组随机打乱
 export function fRandomArr(arr) {
 	return arr.sort(() => {return Math.random()-0.5});
+}
+//生成含有x个随机打乱的Index的数组
+export function fRandomIndexArr(num) {
+	let arr = [], index = 0
+	if(isNaN(num)){
+		return arr
+	}else{
+		while(index < Number(num)){
+			arr.push(index)
+			index++
+		}
+		return arr.sort(() => {return Math.random()-0.5});
+	}
 }
 
 export function fCompareArr(arr1,arr2) {

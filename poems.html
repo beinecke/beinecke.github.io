@@ -4,22 +4,25 @@
 	<meta charset="UTF-8">
 	<title>安安古诗词记录</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
-	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
+	<link rel="stylesheet" href="./static/css/tailwindcss@3.2.1.min.css">
 </head>
 <body>
-	<div id="app" class="xl:container xl:mx-auto min-h-full">
+	<!--<img src="./static/image/png/bird_2.png" class="animal_img fixed left-2 w-20" style="top:0%" id="bird_2">-->
+	<!--<img src="./static/image/png/bird_3.png" class="animal_img fixed right-4 w-20" style="top:25%" id="bird_3">-->
+	<img src="./static/image/png/snail.png" class="animal_img fixed" id="snail">
+	<div id="app" class="container xl:mx-auto min-h-full">
 		<div id="list" class="px-8 py-2" v-if="!bTesting">
-			<h1 class="flex justify-between my-2">
+			<h1 class="my-2 text-center">
 				<span class="leading-10">古诗背诵记录表</span>
-				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
-				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
-				active:bg-red-700 transition ease-in-out duration-150" @click="fStartTest">
-					测试
-				</button>
 			</h1>
+			<button type="button" class="fixed right-2 top-2 inline-flex items-center px-4 py-2 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-red-500 hover:bg-red-500 focus:border-red-700
+				active:bg-red-700 transition ease-in-out duration-150" @click="fStartTest">
+				测试
+			</button>
 			<div class="grid grid-cols-1 gap-y-1 md:grid-cols-2 lg:grid-cols-3">
 				<div v-for="poem in poems">
-					<h3 class="text-sm">
+					<h3 class="text-base md:text-sm">
 						<a :href="'#'+poem.id">
 							<span class="inline-block w-4">{{poem.id}}</span>
 							<span>{{poem.title}}</span>
@@ -33,7 +36,7 @@
 				<img src="./static/image/icons/toTop.svg" class="w-full text-green-600">
 			</a>
 			<div class="grid grid-cols-1 lg:grid-cols-2">
-				<div v-for="el in poems" :id="el.id" class="text-sm mt-1 pt-2 ">
+				<div v-for="el in poems" :id="el.id" class="text-base mt-1 pt-2 md:text-sm">
 					<h4 class="mb-1">
 						<span>{{el.id}}</span>
 						{{el.title}}
@@ -47,27 +50,40 @@
 				</div>
 			</div>
 		</div>
-		<div v-else class="px-8 py-2 h-full">
-			<div>
-				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
-				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
+		<div v-else class="px-8 py-12 h-full">
+			<div class="flex justify-between">
+				<button type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-red-500 hover:bg-red-500 focus:border-red-700
 				active:bg-red-700 transition ease-in-out duration-150" @click="bTesting = false">
 					←
+				</button>
+				<button type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-green-500 hover:bg-green-500 focus:border-green-700
+				active:bg-green-700 transition ease-in-out duration-150"
+								@click="fNextPoem(false)"
+								:disabled="arrIndex >= poems.length-1">
+					→
 				</button>
 			</div>
 			<div class="py-3 text-center">
 				<div class="text-center text-2xl leading-normal">
 					<p>{{currentPoem.title}}</p>
-					<p class="text-base text-gray-600">{{currentPoem.poet}}</p>
+					<p class="text-base text-gray-500">{{currentPoem.poet}}</p>
 				</div>
 				<div class="text-2xl leading-relaxed py-3">
 					<p v-for="(p,index) in currentPoem.content" class="text-center flyText" v-show="index < pIndex">{{p}}</p>
 				</div>
 				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
-				leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:border-red-700
+				leading-6 font-medium rounded-md text-white bg-red-500 hover:bg-red-500 focus:border-red-700
 				active:bg-red-700 transition ease-in-out duration-150"
 								@click="fNext" v-if="pIndex < currentPoem.content.length">
 					下一句
+				</button>
+				<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-base
+				leading-6 font-medium rounded-md text-white bg-green-500 hover:bg-green-500 focus:border-green-700
+				active:bg-green-700 transition ease-in-out duration-150 disabled:bg-gray-400"
+								@click="fNextPoem(false)" v-else :disabled="arrIndex >= poems.length-1">
+					下一首
 				</button>
 			</div>
 		</div>
@@ -79,7 +95,7 @@
 <script src="./static/vender/element-ui@2.3.4/index.js"></script>
 <script type="module">
 	import { poems } from './static/js/poems.js'
-	import { getRandom } from './static/js/utils.js'
+	import { getRandom, fRandomIndexArr } from './static/js/utils.js'
 
 	new Vue({
 		el: '#app',
@@ -90,18 +106,17 @@
 				bTesting: false,
 				pIndex: 0,
 				pContent: [],
+				randomIndexArr: [],
+				arrIndex: 0,
+				currentPoem: {}
 			}
 		},
 		computed:{
-			'currentPoem'(){
-				return this.poems[this.currentIndex]
-			}
 		},
 		methods: {
 			fStartTest() {
-				this.currentIndex = getRandom(0, this.poems.length -1)
-				this.pIndex = 0;
-				this.pContent = [];
+				this.randomIndexArr = fRandomIndexArr(this.poems.length)
+				this.fNextPoem(true)
 				this.bTesting = true;
 			},
 			fNext(){
@@ -109,11 +124,30 @@
 					this.pContent.push(this.currentPoem.content[this.pIndex])
 					this.pIndex++
 				}
+			},
+			fNextPoem(init = false){
+				this.arrIndex = init ? 0 : this.arrIndex+1
+				this.currentIndex = this.randomIndexArr[this.arrIndex]
+				this.currentPoem = this.poems[this.currentIndex]
+				console.log(init, this.arrIndex,this.randomIndexArr[this.arrIndex])
+				this.pIndex = 0;
+				this.pContent = [];
 			}
 		}
 	})
 </script>
 <style>
+	.container{
+		margin: 0 auto;
+	}
+	button:disabled{
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+	.animal_img{
+		z-index: -1;
+		width: 5rem;
+	}
 	.flyText{
 		white-space:nowrap;
 		animation: textIn 1s both;
@@ -129,6 +163,80 @@
 		60% {
 			opacity: 1;
 			letter-spacing: 0;
+		}
+	}
+	#bird_2{
+		animation: birdmove2 3s infinite ease-in;
+	}
+	@keyframes birdmove2 {
+		50% {
+			transform: rotate(-5deg);
+		}
+	}
+	#bird_3{
+		animation: birdmove 3s infinite ease-in ;
+	}
+	@keyframes birdmove {
+		50% {
+			transform: rotate(5deg) translate(-20px, -10px);
+		}
+	}
+	#snail{
+		animation: snailmove 150s infinite ease-in;
+	}
+	@keyframes snailmove {
+		0% {
+			left: 100%;
+			top: 100%;
+			transform: translate(-100%,-100%) rotate(0deg);
+		}
+		20% {
+			left: 0%;
+			top: 100%;
+			transform: translate(0%,-100%) rotate(0deg);
+		}
+		25% {
+			left: 0%;
+			top: 100%;
+			transform: translate(0%,-100%) rotate(90deg);
+		}
+		45% {
+			left: 0%;
+			top: 0%;
+			transform: translate(0%,0%) rotate(90deg);
+		}
+		50% {
+			left: 0%;
+			top: 0%;
+			transform: translate(0%,0%) rotate(180deg);
+		}
+		70% {
+			left: 100%;
+			top: 0%;
+			transform: translate(-100%,0%) rotate(180deg);
+		}
+		75% {
+			left: 100%;
+			top: 0%;
+			transform: translate(-100%,0%) rotate(270deg);
+		}
+		95% {
+			left: 100%;
+			top: 100%;
+			transform: translate(-100%,-100%) rotate(270deg);
+		}
+		100% {
+			left: 100%;
+			top: 100%;
+			transform: translate(-100%,-100%) rotate(360deg);
+		}
+	}
+	@media (max-width: 768px) {
+		.animal_img{
+			width: 3rem;
+		}
+		#snail{
+			animation: snailmove 50s infinite ease-in;
 		}
 	}
 </style>
