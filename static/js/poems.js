@@ -334,7 +334,7 @@ export const poems = [
 		date: '2022-10'
 	},
 	{
-		title: '峨眉山月',
+		title: '峨眉山月歌',
 		poet: '李白',
 		id: 28,
 		content: [
