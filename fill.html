@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>宝宝填色</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
+	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
+	<link rel="stylesheet" href="./static/css/fill.css">
+</head>
+<style>
+	html body{
+		min-width: 320px;
+	}
+	.container{
+		max-width: 1200px;
+	}
+	@media (max-width: 480px) {
+		.dn-small{
+			display: none;
+		}
+	}
+	#colors {
+		width: 100%;
+		box-sizing: border-box;
+		background-color:#000;
+		position:absolute;
+		bottom: 10px;
+		left: 0;
+		padding: 30px 60px;
+		z-index:10;
+	}
+	.crayon{
+		display: inline-block;
+		width: 90px;
+	}
+	.crayon.active{
+		transform: scale(1.1) translateY(-7%);
+		margin: 0 10px;
+	}
+</style>
+<body>
+<div id="app" class="container mx-auto min-h-full px-2">
+	<button @click="fSwitch">下一个</button>
+	<div id="draw-wrap">
+		<canvas id="canvas" width="649" height="465"></canvas>
+		<div id="wire" @click="fFill"></div>
+	</div>
+	<div id="colors">
+		<svg v-for="color in colorArr"
+				 @click="fChoseColor(color)"
+				 class="crayon icon"
+				 :class="{active: activeColor == color}"
+				 viewBox="0 0 450 1024" xmlns="http://www.w3.org/2000/svg" p-id="13170" version="1.1">
+			<path id="svg_1" :fill="'#'+color"
+						p-id="13171"
+						d="m423.6,979.3l-389.2,0c-1.7,0 -1.7,0 -1.7,-1.7l0,-322.6c0,-10.2 6.8,-17.1 17.1,-17.1l358.4,0c10.2,0 17.1,6.8 17.1,17.1l-1.7,324.3c1.7,0 1.7,0 0,0zm-15.4,-358.4l-358.4,0l83.6,-361.8c1.7,-8.5 8.5,-13.7 17.1,-13.7l143.4,0c8.5,0 15.4,5.1 17.1,13.7l97.2,361.8zm-136.5,-375.5l-102.4,0l46.1,-165.5c1.7,-6.8 10.2,-6.8 11.9,0l44.4,165.5z"/>
+		</svg>
+	</div>
+</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="./static/js/vue@2.6.12.js"></script>
+<script src="./static/vender/floodFillLinear.js"></script>
+<script src="./static/vender/jquery-2.1.4.min.js"></script>
+<script src="./static/js/fill.js"></script>
+<script type="module">
+	import { colorArr, picsArr } from './static/js/fillConst.js'
+
+	new Vue({
+		el: '#app',
+		data: function() {
+			return {
+				colorArr: colorArr,
+				activeColor: colorArr[0],
+				ctx:null,
+				currentIndex: 0,
+				picsArr: picsArr
+			}
+		},
+		mounted(){
+			this.fInit()
+		},
+		methods: {
+			fInit(index=0){
+				const THIS = this
+				var myCanvas = document.getElementById("canvas"),
+				image = new Image();
+				this.ctx = myCanvas.getContext("2d");
+				image.src = picsArr[index];
+				image.onload = function() {
+					THIS.ctx.drawImage(image, 0, 0)
+				};
+			},
+			fSwitch(){
+				this.currentIndex++
+				this.fInit(this.currentIndex)
+			},
+			fChoseColor(color){
+				this.activeColor = color
+			},
+			fFill(e){
+				e = e.originalEvent || e;
+				var element = document.querySelector("#wire");
+				var left = Math.floor(e.pageX - element.offsetLeft);
+				var top = Math.floor(e.pageY - element.offsetTop);
+				console.log(e.pageX, element.offsetLeft)
+				console.log(e.pageY, element.offsetTop)
+				var imgData = this.ctx.getImageData(left, top, 1, 1);
+				var colorArr = imgData.data;
+				if (colorArr[0] === 0 && colorArr[1] === 0 && colorArr[2] === 0 && colorArr[3] === 0) {
+					alert("此处不能上色");
+					return false
+				}
+				//判断是否点在线条上
+				if(colorArr[0] < 50 && colorArr[1] < 50 && colorArr[2] < 50 && colorArr[3] === 255){
+					alert("线条处不能上色");
+					return false
+				}
+				var fillColor = hexToRgb(this.activeColor).split(",");
+				fillColor.push(255);
+				floodFillLinear(document.getElementById("canvas"), left, top, fillColor, 80);
+			}
+		}
+	})
+</script>
+</html>
