@@ -157,9 +157,9 @@ a, button { -webkit-tap-highlight-color:rgba(255,255,255,0);  /*可以同时屏�
 /*}*/
 
 #draw-wrap {
-    width:649px;
-    height:465px;
-    position:absolute;
+    width:500px;
+    height:500px;
+    position: relative;
 }
 #canvas, #wire {
     width: 100%;

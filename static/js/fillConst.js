@@ -15,10 +15,10 @@ export const colorArr = [
 	'ffffff',
 ]
 export const picsArr = [
-	'./static/image/linepics/ball.jpg',
-	'./static/image/linepics/ballon.jpg',
-	'./static/image/linepics/car.jpg',
-	'./static/image/linepics/duck.jpg',
-	'./static/image/linepics/mashroom.jpg',
-	'./static/image/linepics/plane.jpg',
+	'ball',
+	'balloon',
+	'car',
+	'duck',
+	'mushroom',
+	'plane',
 ]

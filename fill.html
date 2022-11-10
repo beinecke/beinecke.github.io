@@ -5,7 +5,6 @@
 	<title>宝宝填色</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
 	<link rel="stylesheet" href="./static/css/tailwindcss@2.2.19.min.css">
-	<link rel="stylesheet" href="./static/css/fill.css">
 </head>
 <style>
 	html body{
@@ -19,49 +18,82 @@
 			display: none;
 		}
 	}
+	#thumb-wrap{
+		position: absolute;
+		right: 0;
+		top:0;
+		width: 400px;
+	}
 	#colors {
 		width: 100%;
 		box-sizing: border-box;
 		background-color:#000;
-		position:absolute;
-		bottom: 10px;
-		left: 0;
-		padding: 30px 60px;
+		padding: 20px;
 		z-index:10;
+		margin-top: 20px;
 	}
 	.crayon{
 		display: inline-block;
 		width: 90px;
+		max-height: 120px;
 	}
 	.crayon.active{
 		transform: scale(1.1) translateY(-7%);
 		margin: 0 10px;
 	}
+	#draw-wrap {
+		width:500px;
+		height:500px;
+		position: relative;
+	}
+	#canvas, #wire {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		-webkit-tap-highlight-color:rgba(255,255,255,0);
+	}
+	.img-wrap{
+		width: 100px;
+		height: 100px;
+	}
+	.img-wrap.active{
+		border: 2px solid #02a1e3;
+	}
 </style>
 <body>
-<div id="app" class="container mx-auto min-h-full px-2">
-	<button @click="fSwitch">下一个</button>
-	<div id="draw-wrap">
-		<canvas id="canvas" width="649" height="465"></canvas>
-		<div id="wire" @click="fFill"></div>
+<div id="app" class="mx-auto min-h-full px-2">
+	<div>
+		<div id="draw-wrap">
+			<canvas id="canvas" width="500" height="500"></canvas>
+			<div id="wire" @click="fFill"></div>
+		</div>
+		<div id="thumb-wrap">
+			<div v-for="(pic,index) in picsArr" class="img-wrap inline-block" @click="fSwitchImg(index)" :class="{active: currentIndex == index}">
+				<img class="thumb" :src="'./static/image/drawing/'+pic+'.png'">
+			</div>
+		</div>
 	</div>
 	<div id="colors">
-		<svg v-for="color in colorArr"
-				 @click="fChoseColor(color)"
-				 class="crayon icon"
-				 :class="{active: activeColor == color}"
-				 viewBox="0 0 450 1024" xmlns="http://www.w3.org/2000/svg" p-id="13170" version="1.1">
-			<path id="svg_1" :fill="'#'+color"
-						p-id="13171"
-						d="m423.6,979.3l-389.2,0c-1.7,0 -1.7,0 -1.7,-1.7l0,-322.6c0,-10.2 6.8,-17.1 17.1,-17.1l358.4,0c10.2,0 17.1,6.8 17.1,17.1l-1.7,324.3c1.7,0 1.7,0 0,0zm-15.4,-358.4l-358.4,0l83.6,-361.8c1.7,-8.5 8.5,-13.7 17.1,-13.7l143.4,0c8.5,0 15.4,5.1 17.1,13.7l97.2,361.8zm-136.5,-375.5l-102.4,0l46.1,-165.5c1.7,-6.8 10.2,-6.8 11.9,0l44.4,165.5z"/>
-		</svg>
+		<div class="flex mx-auto container">
+			<svg v-for="color in colorArr"
+					 @click="fChoseColor(color)"
+					 class="crayon icon"
+					 :class="{active: activeColor == color}"
+					 viewBox="0 0 450 1024" xmlns="http://www.w3.org/2000/svg" p-id="13170" version="1.1">
+				<path id="svg_1" :fill="'#'+color"
+							p-id="13171"
+							d="m423.6,979.3l-389.2,0c-1.7,0 -1.7,0 -1.7,-1.7l0,-322.6c0,-10.2 6.8,-17.1 17.1,-17.1l358.4,0c10.2,0 17.1,6.8 17.1,17.1l-1.7,324.3c1.7,0 1.7,0 0,0zm-15.4,-358.4l-358.4,0l83.6,-361.8c1.7,-8.5 8.5,-13.7 17.1,-13.7l143.4,0c8.5,0 15.4,5.1 17.1,13.7l97.2,361.8zm-136.5,-375.5l-102.4,0l46.1,-165.5c1.7,-6.8 10.2,-6.8 11.9,0l44.4,165.5z"/>
+			</svg>
+		</div>
 	</div>
 </div>
 </body>
 <!-- 先引入 Vue -->
 <script src="./static/js/vue@2.6.12.js"></script>
 <script src="./static/vender/floodFillLinear.js"></script>
-<script src="./static/vender/jquery-2.1.4.min.js"></script>
+<!--<script src="./static/vender/jquery-2.1.4.min.js"></script>-->
 <script src="./static/js/fill.js"></script>
 <script type="module">
 	import { colorArr, picsArr } from './static/js/fillConst.js'
@@ -74,7 +106,7 @@
 				activeColor: colorArr[0],
 				ctx:null,
 				currentIndex: 0,
-				picsArr: picsArr
+				picsArr: picsArr,
 			}
 		},
 		mounted(){
@@ -86,13 +118,13 @@
 				var myCanvas = document.getElementById("canvas"),
 				image = new Image();
 				this.ctx = myCanvas.getContext("2d");
-				image.src = picsArr[index];
+				image.src = './static/image/linepics/'+picsArr[index]+'.jpg';
 				image.onload = function() {
 					THIS.ctx.drawImage(image, 0, 0)
 				};
 			},
-			fSwitch(){
-				this.currentIndex++
+			fSwitchImg(index){
+				this.currentIndex = index
 				this.fInit(this.currentIndex)
 			},
 			fChoseColor(color){
