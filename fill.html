@@ -85,7 +85,7 @@
 	</div>
 	<div id="colors">
 		<div class="flex mx-auto container">
-			<svg v-for="color in colorArr"
+			<svg v-for="(color,index) in colorArr"
 					 @click="fChoseColor(color)"
 					 class="crayon icon"
 					 :class="{active: activeColor == color}"
@@ -104,14 +104,14 @@
 <!--<script src="./static/vender/jquery-2.1.4.min.js"></script>-->
 <script src="./static/js/fill.js"></script>
 <script type="module">
-	import { colorArr, picsArr } from './static/js/fillConst.js'
+	import { colorArr,colorArrAll,colorArr2nd,colorArr3rd,colorArr4th, picsArr } from './static/js/fillConst.js'
 
 	new Vue({
 		el: '#app',
 		data: function() {
 			return {
-				colorArr: colorArr,
-				activeColor: colorArr[0],
+				colorArr: colorArr4th,
+				activeColor: colorArr4th[0],
 				ctx:null,
 				currentIndex: 0,
 				picsArr: picsArr,
