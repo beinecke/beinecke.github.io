@@ -120,6 +120,19 @@
 			}
 		},
 		mounted(){
+			//禁止双击放大
+			let lastTouchEnd = 0;
+			document.documentElement.addEventListener(
+				"touchend",
+				function (event) {
+					var now = Date.now();
+					if (now - lastTouchEnd <= 300) {
+						event.preventDefault();
+					}
+					lastTouchEnd = now;
+				},
+				{ passive: false }
+			);
 			console.log(window.visualViewport.width,window.visualViewport.height)
 			const screenWith = window.visualViewport.width
 			const screenHeiht = window.visualViewport.height
