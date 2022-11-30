@@ -61,13 +61,27 @@ export const colorArr = [
 	'ffffff',
 ]
 export const picsArr = [
-	'ball.jpg',
-	'balloon.jpg',
-	'car.jpg',
-	'duck.jpg',
-	'mushroom.jpg',
-	'plane.jpg',
-	'whale.jpeg'
+	"duck.jpg",
+	"cat.jpeg",
+	"mushroom.jpg",
+	"fish.jpeg",
+	"flower2.jpeg",
+	"ball.jpg",
+	"polly.jpeg",
+	"plane.jpg",
+	"sun.jpeg",
+	"fish2.jpeg",
+	"flower.jpeg",
+	"fish3.jpeg",
+	"swe23.jpeg",
+	"owel.jpeg",
+	"house.jpeg",
+	"turtle.jpeg",
+	"balloon.jpg",
+	"car.jpg",
+	"monkey.jpeg",
+	"cock.jpeg",
+	"whale.jpeg"
 ]
 export const colorArrAll = [
 'B0E0E6',

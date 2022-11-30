@@ -13,6 +13,8 @@
 		-webkit-user-select: none;   /* 禁止选中文本（如无文本选中需求，此为必选项） */
 		user-select: none;
 		height: 100%;
+		width: 100%;
+		overflow: hidden;
 	}
 	.container{
 		max-width: 1200px;
@@ -22,27 +24,35 @@
 			display: none;
 		}
 	}
-	#thumb-wrap{
+	.thumb-wrap{
 		position: absolute;
 		right: 0;
 		top:0;
-		width: 200px;
+		width: 220px;
+		height: 100%;
+		overflow: scroll;
 	}
-	#colors {
-		width: 100%;
+	.colors {
+		position: absolute;
+		right: 220px;
+		top:0;
+		/*width: 200px;*/
 		box-sizing: border-box;
 		background-color:#000;
 		padding: 20px;
 		z-index:10;
-		margin-top: 20px;
+		height: 100%;
+	}
+	.colors .container{
+		box-sizing: border-box;
+		height: 100%;
 	}
 	.crayon{
-		display: inline-block;
-		width: 90px;
-		max-height: 120px;
+		display: block;
+		height: 4.5%;
 	}
 	.crayon.active{
-		transform: scale(1.1) translateY(-7%);
+		transform: scale(1.1) translateX(-17%);
 		margin: 0 10px;
 	}
 	#draw-wrap {
@@ -67,14 +77,43 @@
 		border: 2px solid #02a1e3;
 	}
 </style>
-<body>
+<body :class="{bHorizontal ? 'horizontal':'portrait'}">
 <div id="app" class="mx-auto min-h-full">
 	<div>
 		<div id="draw-wrap" :style="{ width:canWidth+'px',height:canHeight+'px' }">
 			<canvas id="canvas" ref="myCanvas" :width="canWidth" :height="canHeight"></canvas>
 			<div id="wire" @click="fFill"></div>
 		</div>
-		<div id="thumb-wrap">
+	</div>
+	<div class="wrap">
+		<div class="colors">
+			<div class="container">
+				<svg
+					v-for="(color,index) in colorArr"
+					@click="fChoseColor(color)"
+					class="crayon icon"
+					:class="{active: activeColor == color}"
+					xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0,0,1024,450">
+					<g id="Untitled" inkpad:layerName="Untitled">
+						<path
+							:fill="'#'+color"
+							d="M979.3+26.4L979.3+415.6C979.3+417.3+979.3+417.3+977.6+417.3L655+417.3C644.8+417.3+637.9+410.5+637.9+400.2L637.9+41.8C637.9+31.6+644.7+24.7+655+24.7L979.3+26.4C979.3+24.7+979.3+24.7+979.3+26.4ZM620.9+41.8L620.9+400.2L259.1+316.6C250.6+314.9+245.4+308.1+245.4+299.5L245.4+156.1C245.4+147.6+250.5+140.7+259.1+139C259.1+139+620.9+41.8+620.9+41.8ZM245.4+178.3L245.4+280.7L79.9+234.6C73.1+232.9+73.1+224.4+79.9+222.7C79.9+222.7+245.4+178.3+245.4+178.3Z" opacity="1"/>
+					</g>
+				</svg>
+				<!--<svg v-for="(color,index) in colorArr"-->
+						 <!--@click="fChoseColor(color)"-->
+						 <!--class="crayon icon"-->
+						 <!--:class="{active: activeColor == color}"-->
+						 <!--viewBox="0 0 450 1024" xmlns="http://www.w3.org/2000/svg" p-id="13170" version="1.1">-->
+					<!--<g id="Untitled" inkpad:layerName="Untitled">-->
+						<!--<path-->
+							<!--:fill="'#'+color"-->
+							<!--d="M979.3+26.4L979.3+415.6C979.3+417.3+979.3+417.3+977.6+417.3L655+417.3C644.8+417.3+637.9+410.5+637.9+400.2L637.9+41.8C637.9+31.6+644.7+24.7+655+24.7L979.3+26.4C979.3+24.7+979.3+24.7+979.3+26.4ZM620.9+41.8L620.9+400.2L259.1+316.6C250.6+314.9+245.4+308.1+245.4+299.5L245.4+156.1C245.4+147.6+250.5+140.7+259.1+139C259.1+139+620.9+41.8+620.9+41.8ZM245.4+178.3L245.4+280.7L79.9+234.6C73.1+232.9+73.1+224.4+79.9+222.7C79.9+222.7+245.4+178.3+245.4+178.3Z" opacity="1"/>-->
+					<!--</g>-->
+				<!--</svg>-->
+			</div>
+		</div>
+		<div class="thumb-wrap">
 			<div v-for="(pic,index) in picsArr"
 					 class="img-wrap inline-block" @click="fSwitchImg(index)"
 					 :style="{backgroundImage: `url('./static/image/linepics/${pic}')` }"
@@ -83,19 +122,23 @@
 			</div>
 		</div>
 	</div>
-	<div id="colors">
-		<div class="flex mx-auto container">
-			<svg v-for="(color,index) in colorArr"
-					 @click="fChoseColor(color)"
-					 class="crayon icon"
-					 :class="{active: activeColor == color}"
-					 viewBox="0 0 450 1024" xmlns="http://www.w3.org/2000/svg" p-id="13170" version="1.1">
-				<path id="svg_1" :fill="'#'+color"
-							p-id="13171"
-							d="m423.6,979.3l-389.2,0c-1.7,0 -1.7,0 -1.7,-1.7l0,-322.6c0,-10.2 6.8,-17.1 17.1,-17.1l358.4,0c10.2,0 17.1,6.8 17.1,17.1l-1.7,324.3c1.7,0 1.7,0 0,0zm-15.4,-358.4l-358.4,0l83.6,-361.8c1.7,-8.5 8.5,-13.7 17.1,-13.7l143.4,0c8.5,0 15.4,5.1 17.1,13.7l97.2,361.8zm-136.5,-375.5l-102.4,0l46.1,-165.5c1.7,-6.8 10.2,-6.8 11.9,0l44.4,165.5z"/>
-			</svg>
-		</div>
+	<div class="wrap">
+
 	</div>
+
+	<!--<div class="colors">-->
+		<!--<div class="flex mx-auto container">-->
+			<!--<svg v-for="(color,index) in colorArr"-->
+					 <!--@click="fChoseColor(color)"-->
+					 <!--class="crayon icon"-->
+					 <!--:class="{active: activeColor == color}"-->
+					 <!--viewBox="0 0 450 1024" xmlns="http://www.w3.org/2000/svg" p-id="13170" version="1.1">-->
+				<!--<path id="svg_1" :fill="'#'+color"-->
+							<!--p-id="13171"-->
+							<!--d="m423.6,979.3l-389.2,0c-1.7,0 -1.7,0 -1.7,-1.7l0,-322.6c0,-10.2 6.8,-17.1 17.1,-17.1l358.4,0c10.2,0 17.1,6.8 17.1,17.1l-1.7,324.3c1.7,0 1.7,0 0,0zm-15.4,-358.4l-358.4,0l83.6,-361.8c1.7,-8.5 8.5,-13.7 17.1,-13.7l143.4,0c8.5,0 15.4,5.1 17.1,13.7l97.2,361.8zm-136.5,-375.5l-102.4,0l46.1,-165.5c1.7,-6.8 10.2,-6.8 11.9,0l44.4,165.5z"/>-->
+			<!--</svg>-->
+		<!--</div>-->
+	<!--</div>-->
 </div>
 </body>
 <!-- 先引入 Vue -->
@@ -116,27 +159,32 @@
 				currentIndex: 0,
 				picsArr: picsArr,
 				canWidth: 600,
-				canHeight: 600
+				canHeight: 600,
+				bHorizontal: true
 			}
 		},
 		mounted(){
 			//禁止双击放大
 			let lastTouchEnd = 0;
-			document.documentElement.addEventListener(
-				"touchend",
-				function (event) {
+			document.documentElement.addEventListener("touchend", function (event) {
 					var now = Date.now();
 					if (now - lastTouchEnd <= 300) {
 						event.preventDefault();
 					}
 					lastTouchEnd = now;
-				},
-				{ passive: false }
+				}, { passive: false }
 			);
 			console.log(window.visualViewport.width,window.visualViewport.height)
 			const screenWith = window.visualViewport.width
-			const screenHeiht = window.visualViewport.height
-
+			const screenHeight = window.visualViewport.height
+			if(screenWith > screenHeight){
+				this.canWidth = this.canHeight = screenHeight
+				this.bHorizontal = true
+			}else{
+				this.canWidth = this.canHeight = screenWith
+				this.bHorizontal = false
+			}
+//			this.canWidth = this.canHeight = screenWith > screenHeight ? screenHeight:screenWith
 			this.fInit()
 		},
 		methods: {
