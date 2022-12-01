@@ -253,7 +253,7 @@
 				floodFillLinear(document.getElementById("canvas"), left, top, fillColor, 80);
 			},
 			fSave(){
-				var fileName = Date.now()+'.jpg';
+				var fileName = Date.now()+'.png';
 				var dataImg = new Image();
 				var imgData = canvas.toDataURL('image/png');
 				dataImg.src = imgData;
